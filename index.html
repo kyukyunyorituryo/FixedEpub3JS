@@ -16,11 +16,14 @@
        <script type="text/javascript" src="js/FileSaver.js"></script>
   </head>
   <body>
-    <h1>入力欄</h1>
-          <label>タイトル</label>
-          <input></input>
-          <label>著者</label>
-          <input></input>
+      <div class="container bg-info">
+    <h2>入力欄</h2>
+
+          <label class="label label-primary">タイトル</label>
+          <input  type="text" class="form-control" placeholder="タイトル名">
+          <label class="label label-primary">著者</label>
+          <input   type="text" class="form-control" placeholder="著者名">
+          
 <style>
   .thumb {
     height: 75px;
@@ -29,7 +32,7 @@
   }
 </style>
   <div >
-<label>画像ファイルの読み込み</label>
+<label class="label label-primary">画像ファイルの読み込み</label>
 <input type="file" id="files" name="files[]" multiple />
 <output id="list"></output>
 </div>
@@ -65,7 +68,7 @@
 
   document.getElementById('files').addEventListener('change', handleFileSelect, false);
 </script>
-              <h3>zipファイルから読み込み</h3>
+              <label class="label label-primary">zipファイルから読み込み</label>
 <input type="file" id="file" name="file" multiple /><br />
 
 <div id="error_block" class="alert alert-danger hidden">
@@ -190,5 +193,6 @@ saveAs(content, "example.epub");
 });</textarea>
 <button id="demo" class="btn btn-primary">Run!</button>
 <span id="status"></span>
-  </body>
+
+</div>  </body>
 </html>
