@@ -24,10 +24,14 @@
           <label class="label label-primary">表題</label>
           <input  type="text" class="form-control" id="title"placeholder="タイトル名">
           <label class="label label-primary">著者１</label>
-          <input   type="text" class="form-control" id="author" placeholder="著者名１">
+          <input   type="text" class="form-control" id="author1" placeholder="著者名１">
           <label class="label label-primary">著者２</label>
           <input   type="text" class="form-control" id="author2" placeholder="著者名２">
-          
+          <label class="label label-primary">画像の横幅</label>
+          <input   type="number" class="form-control" id="imgwidth" min="1" value="800"placeholder="800">
+          <label class="label label-primary">画像の高さ</label>
+          <input   type="number" class="form-control" id="imgheight" min="1" value="1200"placeholder="1200">
+
 <style>
   .thumb {
     height: 75px;
@@ -41,25 +45,6 @@
 <output id="list"></output>
 </div>
 
-              <label class="label label-primary">zipファイルから読み込み</label>
-<input type="file" id="file" name="file" multiple /><br />
-
-<div id="error_block" class="alert alert-danger hidden">
-  You will need a recent browser to use this demo :(
-</div>
-
-<div id="
-_block" class="hidden">
-  <h3>Content :</h3>
-  <div id="result"></div>
-</div>
-
-
-
-          <!-- ===================== -->
-          <!-- == / C O N T E N T == -->
-          <!-- ===================== -->
- 
     <h3>ファイルの出力</h3>
 
 <button id="demo" class="btn btn-primary">保存</button>
