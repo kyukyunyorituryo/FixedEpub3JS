@@ -1,14 +1,16 @@
-var imgfile= [];
-//テスト用
-var k=[];
 var coverfile;
 //表紙画像
 function fileChange(ev) {
   var target = ev.target;
  coverfile = target.files;
- 
-  console.log(files);
-}
+//  console.log(files);
+  }
+//画像ファイルオブジェクト配列
+
+var imgFO= [];
+//imgFO = [{file_id:"",file_name:'cover.jpg',data:'',type:'image/jpeg'}];
+
+//ファイル読み込み
  document.addEventListener("DOMContentLoaded", function(){
 document.getElementById('coverfile').addEventListener('change', handleFileSelect, false);});
 
@@ -17,8 +19,6 @@ document.getElementById('coverfile').addEventListener('change', handleFileSelect
 
     // Loop through the FileList and render image files as thumbnails.
     for (var i = 0, f; f = files[i]; i++) {
-//テスト用
-k.push(f);
 
       // Only process image files.
       if (!f.type.match('image.*')) {
@@ -33,14 +33,20 @@ k.push(f);
           // Render thumbnail.
           var span = document.createElement('span');
           span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                            '" title="', escape(theFile.name), '"/>'].join('');
+                            '" title="', theFile.name, '"/>'].join('');
           document.getElementById('list').insertBefore(span, null);
 //チェックコード
-          imgfile.push( e.target.result);
-          var image =new Image();
-          image.src = e.target.result;
+//        var image =new Image();
+//          image.src = e.target.result;
+//          image.onload = function() {
 //          console.log(image.width);
 //          console.log(image.height);
+//};
+console.log(theFile.name);
+console.log(theFile.type);
+imgFO.push({file_name:theFile.name,data:e.target.result,type:theFile.type});
+//通し番号ファイル名　 id="i-001"
+//imgFO[imgFO.length - 1].id="i-"+ ('0000' + (imgFO.length) ).slice( -3 );
 
         };
       })(f);
@@ -91,15 +97,24 @@ var today = new Date();
 standardOPFxml.querySelector("meta[property='dcterms:modified']").textContent=today.toISOString().slice(0,19)+"Z";
 //kindleの場合
 var image =new Image();
-          image.src = imgfile[1];
+          image.src =imgFO[1].data;
+          image.onload = function() {
           console.log(image.width);
           console.log(image.height);
+};
+
 //manifest image
 //media-type="image/jpeg" id="i-001" href="image/i-001.jpg"
+// var imgdf = document.createDocumentFragment();
 var ele = standardOPFxml.createElement("item");
+//繰り返す　
+//for (j = 1; j < imgFO.length; j++){
 	ele.setAttribute("media-type", "image/jpeg");
 	ele.setAttribute("id", "i-002");
 	ele.setAttribute("href", "image/i-002.jpg");
+//	 df.appendChild(ele);
+//}
+//ココまで
 var	parent =standardOPFxml.querySelector("manifest");
 console.log(ele)
 var	reference = standardOPFxml.getElementById('i-001');
@@ -178,9 +193,9 @@ style.file("fixed-layout-jp.css",layout)
 var xhtml = zip.folder("item/xhtml");
 xhtml.file("p-cover.xhtml",coverxhtml);
 xhtml.file("p-001.xhtml",pagexhtml);
-img.file("cover.jpg", imgfile[0].split('base64,')[1], {base64: true});
-for (j = 1; j < imgfile.length; j++){
-img.file("i-"+ ('0000' + j ).slice( -3 )+".jpg", imgfile[j].split('base64,')[1], {base64: true});
+img.file("cover.jpg", imgFO[0].data.split('base64,')[1], {base64: true});
+for (j = 0; j < imgFO.length; j++){
+img.file("i-"+ ('0000' + (j+1) ).slice( -3 )+".jpg", imgFO[j].data.split('base64,')[1], {base64: true});
 }
 zip.generateAsync({type:"blob"})
 .then(function(content) {
