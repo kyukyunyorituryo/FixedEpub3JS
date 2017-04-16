@@ -1,20 +1,11 @@
-var coverfile;
-//表紙画像
-function fileChange(ev) {
-  var target = ev.target;
- coverfile = target.files;
-//  console.log(files);
-  }
-//画像ファイルオブジェクト配列
-
+//画像ファイル配列オブジェクト
 var imgFO= [];
 //imgFO = [{file_id:"",file_name:'cover.jpg',data:'',type:'image/jpeg'}];
 
-//ファイル読み込み
- document.addEventListener("DOMContentLoaded", function(){
-document.getElementById('coverfile').addEventListener('change', handleFileSelect, false);});
+//表紙画像入力
+var coverFO= {file_id:"cover",file_name:'',data:'',type:''};
 
-  function handleFileSelect(evt) {
+ function CoverFileSelect(evt) {
     var files = evt.target.files; // FileList object
 
     // Loop through the FileList and render image files as thumbnails.
@@ -33,6 +24,40 @@ document.getElementById('coverfile').addEventListener('change', handleFileSelect
           // Render thumbnail.
           var span = document.createElement('span');
           span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                            '" title="', escape(theFile.name), '"/>'].join('');
+          document.getElementById('coverthumb').insertBefore(span, null);
+          coverFO=({file_name:theFile.name,data:e.target.result,type:theFile.type});
+        };
+      })(f);
+
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);
+    }
+  }
+document.addEventListener("DOMContentLoaded", function(){
+  document.getElementById('coverfile').addEventListener('change', CoverFileSelect, false);});
+//ここまで表紙画像
+
+//ここからページ画像入力
+//連続画像ファイル読み込み
+  function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    // Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {
+
+      // Only process image files.
+      if (!f.type.match('image.*')) {
+        continue;
+      }
+
+      var reader = new FileReader();
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+          var span = document.createElement('span');
+          span.innerHTML = ['<img class="thumb" src="', e.target.result,
                             '" title="', theFile.name, '"/>'].join('');
           document.getElementById('list').insertBefore(span, null);
 //チェックコード
@@ -45,9 +70,9 @@ document.getElementById('coverfile').addEventListener('change', handleFileSelect
 console.log(theFile.name);
 console.log(theFile.type);
 imgFO.push({file_name:theFile.name,data:e.target.result,type:theFile.type});
+//画像ファイル名での整列
 //通し番号ファイル名　 id="i-001"
 //imgFO[imgFO.length - 1].id="i-"+ ('0000' + (imgFO.length) ).slice( -3 );
-
         };
       })(f);
 
@@ -57,7 +82,6 @@ imgFO.push({file_name:theFile.name,data:e.target.result,type:theFile.type});
   }
 document.addEventListener("DOMContentLoaded", function(){
   document.getElementById('files').addEventListener('change', handleFileSelect, false);});
-
 
 //EPUB３テンプレート
 var containerXML ='<?xml version="1.0" encoding="UTF-8"?>\n<container xmlns="urn:oasis:names:tc:opendocument:xmlns:container" version="1.0">\n<rootfiles>\n<rootfile full-path="item/standard.opf" media-type="application/oebps-package+xml"/>\n</rootfiles>\n</container>';
@@ -78,8 +102,11 @@ function rewrite(){
 var standardOPFxml = (new DOMParser()).parseFromString(standardOPF, 'text/xml');
 //タイトル
 standardOPFxml.getElementById('title').textContent=$("#title").val();
-var sttitle=standardOPFxml.querySelector("meta[refines='#title']");
-//sttitle.parentNode.removeChild(sttitle);
+var sttitle=standardOPFxml.querySelectorAll("meta[refines='#title']");
+//if(sttitle.length>0){
+//sttitle.parentNode.removeChild(sttitle);}
+for  (i = 0; i < sttitle.length; i++){
+sttitle[i].parentNode.removeChild(sttitle[i]);}
 //著者１
 standardOPFxml.getElementById('creator01').textContent=$("#author1").val();
 var metaall = standardOPFxml.querySelectorAll("meta[refines='#creator01']");
@@ -91,18 +118,29 @@ var metaall = standardOPFxml.querySelectorAll("meta[refines='#creator02']");
 for  (i = 0; i < metaall.length; i++){
 metaall[i].parentNode.removeChild(metaall[i]);}
 //出版社
+var node = standardOPFxml.getElementById("publisher");
+if(node != null){
+	node.parentNode.removeChild(node);
+	}
+var pub = standardOPFxml.querySelectorAll("meta[refines='#publisher']");
+for  (i = 0; i < pub.length; i++){
+pub[i].parentNode.removeChild(pub[i]);}
+//meta refines="#publisher" 
+
+
 //ファイルID、uuid
 //日時
 var today = new Date();
 standardOPFxml.querySelector("meta[property='dcterms:modified']").textContent=today.toISOString().slice(0,19)+"Z";
 //kindleの場合
+/*
 var image =new Image();
           image.src =imgFO[1].data;
           image.onload = function() {
           console.log(image.width);
           console.log(image.height);
 };
-
+*/
 //manifest image
 //media-type="image/jpeg" id="i-001" href="image/i-001.jpg"
 // var imgdf = document.createDocumentFragment();
@@ -112,9 +150,9 @@ var ele = standardOPFxml.createElement("item");
 	ele.setAttribute("media-type", "image/jpeg");
 	ele.setAttribute("id", "i-002");
 	ele.setAttribute("href", "image/i-002.jpg");
-//	 df.appendChild(ele);
+//	 imgdf.appendChild(ele);
 //}
-//ココまで
+//ココまで繰り返す
 var	parent =standardOPFxml.querySelector("manifest");
 console.log(ele)
 var	reference = standardOPFxml.getElementById('i-001');
