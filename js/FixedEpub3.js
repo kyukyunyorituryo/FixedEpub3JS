@@ -99,6 +99,13 @@ var layout='@charset "UTF-8";\n\nhtml,\nbody {\n  margin:    0;\n  padding:   0;
 //EPUB3テンプレートの書換え　DOMParserを使って書き換える。
 //OPFファイルの書換
 function rewrite(){
+//画像ファイル名で整列
+//imgFO = [{file_id:"",file_name:'cover.jpg',data:'',type:'image/jpeg'}];
+ imgFO.sort(function(a,b){
+    if(a.file_name<b.file_name) return -1;
+    if(a.file_name > b.file_name) return 1;
+    return 0;
+});
 var standardOPFxml = (new DOMParser()).parseFromString(standardOPF, 'text/xml');
 //タイトル
 standardOPFxml.getElementById('title').textContent=$("#title").val();
@@ -129,6 +136,8 @@ pub[i].parentNode.removeChild(pub[i]);}
 
 
 //ファイルID、uuid
+var objV4 = UUID.genV4();
+standardOPFxml.getElementById('unique-id').textContent=objV4.urn;
 //日時
 var today = new Date();
 standardOPFxml.querySelector("meta[property='dcterms:modified']").textContent=today.toISOString().slice(0,19)+"Z";
@@ -143,30 +152,55 @@ var image =new Image();
 */
 //manifest image
 //media-type="image/jpeg" id="i-001" href="image/i-001.jpg"
-// var imgdf = document.createDocumentFragment();
+var imgdf = standardOPFxml.createDocumentFragment();
 var ele = standardOPFxml.createElement("item");
-//繰り返す　
-//for (j = 1; j < imgFO.length; j++){
 	ele.setAttribute("media-type", "image/jpeg");
 	ele.setAttribute("id", "i-002");
 	ele.setAttribute("href", "image/i-002.jpg");
-//	 imgdf.appendChild(ele);
-//}
+/*繰り返し用
+for (j = 0; j < imgFO.length; j++){
+imgFO[j].id="i-"+ ('0000' + (j+1) ).slice( -3 );
+if(imgFO[j].type=="image/jpeg"){imgFO[j].ext="jpg"};
+if(imgFO[j].type=="image/png"){imgFO[j].ext="png"};
+	var ele = standardOPFxml.createElement("item");
+	ele.setAttribute("media-type", imgFO[j].type);
+	ele.setAttribute("id", imgFO[j].id);
+	ele.setAttribute("href", "image/"+imgFO[j].id+"."+imgFO[j].ext);
+	 imgdf.appendChild(ele);
+}
+*/
 //ココまで繰り返す
 var	parent =standardOPFxml.querySelector("manifest");
 console.log(ele)
 var	reference = standardOPFxml.getElementById('i-001');
-//	parent.appendChild(ele);
+//	parent.insertBefore(imgdf,reference.nextSibling);
 	parent.insertBefore(ele,reference.nextSibling);
 	console.log(parent);
+
 //manifest xhtml
 //<item media-type="application/xhtml+xml" id="p-001" href="xhtml/p-001.xhtml" properties="svg" fallback="i-001"/>
+var xhtdf = standardOPFxml.createDocumentFragment();
 var xele = standardOPFxml.createElement("item");
 	xele.setAttribute("media-type", "application/xhtml+xml");
 	xele.setAttribute("id", "p-002");
 	xele.setAttribute("href", "xhtml/p-002.xhtml");
 	xele.setAttribute("properties", "svg");
 	xele.setAttribute("fallback", "i-002");
+
+/*繰り返し用
+
+for (j = 0; j < imgFO.length; j++){
+imgFO[j].xhid="p-"+ ('0000' + (j+1) ).slice( -3 );
+var xele = standardOPFxml.createElement("item");
+	xele.setAttribute("media-type", "application/xhtml+xml");
+	xele.setAttribute("id", imgFO[j].xhid);
+	xele.setAttribute("href", "xhtml/"+imgFO[j].xhid+".xhtml");
+	xele.setAttribute("properties", "svg");
+	xele.setAttribute("fallback", imgFO[j].id);
+	 xhtdf.appendChild(xele);
+}
+
+*/ //ココまで繰り返す
 var	xparent =standardOPFxml.querySelector("manifest");
 console.log(xele)
 var	xreference = standardOPFxml.getElementById('p-001');
@@ -231,7 +265,7 @@ style.file("fixed-layout-jp.css",layout)
 var xhtml = zip.folder("item/xhtml");
 xhtml.file("p-cover.xhtml",coverxhtml);
 xhtml.file("p-001.xhtml",pagexhtml);
-img.file("cover.jpg", imgFO[0].data.split('base64,')[1], {base64: true});
+img.file("cover.jpg", coverFO.data.split('base64,')[1], {base64: true});
 for (j = 0; j < imgFO.length; j++){
 img.file("i-"+ ('0000' + (j+1) ).slice( -3 )+".jpg", imgFO[j].data.split('base64,')[1], {base64: true});
 }
