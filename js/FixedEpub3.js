@@ -6,6 +6,9 @@ var imgFO= [];
 var coverFO= {file_id:"cover",file_name:'',data:'',type:''};
 //xhtml出力用
 var pages=[];
+//UUID宣言
+var objV4 = UUID.genV4();
+
 
  function CoverFileSelect(evt) {
     var files = evt.target.files; // FileList object
@@ -29,6 +32,8 @@ var pages=[];
                             '" title="', escape(theFile.name), '"/>'].join('');
           document.getElementById('coverthumb').insertBefore(span, null);
           coverFO=({file_name:theFile.name,data:e.target.result,type:theFile.type});
+          if(coverFO.type=="image/jpeg"){coverFO.ext="jpg"};
+	if(coverFO.type=="image/png"){coverFO.ext="png"};
         };
       })(f);
 
@@ -99,8 +104,12 @@ var pagexhtml='<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE html>\n<html xm
 var ncx='<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<!-- For compatibility with ePub2 Player -->\n<ncx:ncx xmlns:ncx="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">\n  <ncx:head>\n    <ncx:meta name="dtb:uid" content="urn:uuid:A649F639-6C1F-1014-8CC3-F813564D7508"/>\n    <ncx:meta name="dtb:depth" content="-1"/>\n    <ncx:meta name="dtb:totalPageCount" content="0"/>\n    <ncx:meta name="dtb:maxPageNumber" content="0"/>\n  </ncx:head>\n  <ncx:docTitle>\n    <ncx:text>title</ncx:text>\n  </ncx:docTitle>\n  <ncx:docAuthor>\n    <ncx:text>author</ncx:text>\n  </ncx:docAuthor>\n  <ncx:navMap>\n    <ncx:navPoint id="p01" playOrder="1">\n      <ncx:navLabel>\n        <ncx:text>navigation</ncx:text>\n      </ncx:navLabel>\n      <ncx:content src="xhtml/p-cover.xhtml"/>\n    </ncx:navPoint>\n\n    <ncx:navPoint id="about" playOrder="2">\n      <ncx:navLabel>\n        <ncx:text>目次</ncx:text>\n      </ncx:navLabel>\n      <ncx:content src="xhtml/p-001.xhtml"/>\n    </ncx:navPoint>\n  </ncx:navMap>\n</ncx:ncx>';
 var layout='@charset "UTF-8";\n\nhtml,\nbody {\n  margin:    0;\n  padding:   0;\n  font-size: 0;\n}\nsvg {\n  margin:    0;\n  padding:   0;\n}\n';
 //EPUB3テンプレートの書換え　DOMParserを使って書き換える。
+
 //OPFファイルの書換
 function rewrite(){
+//キンドルの場合kindleOPF、それ以外はstandardOPFに設定する。
+var flag = document.getElementById("radio1").checked;
+if(flag){standardOPF=kindleOPF};
 //画像ファイル名で整列
 //imgFO = [{file_id:"",file_name:'cover.jpg',data:'',type:'image/jpeg'}];
  imgFO.sort(function(a,b){
@@ -138,12 +147,11 @@ pub[i].parentNode.removeChild(pub[i]);}
 
 
 //ファイルID、uuid
-var objV4 = UUID.genV4();
 standardOPFxml.getElementById('unique-id').textContent=objV4.urn;
 //日時
 var today = new Date();
 standardOPFxml.querySelector("meta[property='dcterms:modified']").textContent=today.toISOString().slice(0,19)+"Z";
-//kindleの場合
+//イメージをロードする場合
 /*
 var image =new Image();
           image.src =imgFO[1].data;
@@ -180,6 +188,10 @@ if(imgFO[j].type=="image/png"){imgFO[j].ext="png"};
 var	parent =standardOPFxml.querySelector("manifest");
 console.log(ele)
 var	reference = standardOPFxml.getElementById('cover');
+//coverの書き換え
+	reference.setAttribute("media-type", coverFO.type);
+	reference.setAttribute("href", "image/"+"cover."+coverFO.ext);
+//coverFO.file_id+"."+coverFO.ext
 	parent.insertBefore(imgdf,reference.nextSibling);
 //	parent.insertBefore(ele,reference.nextSibling);
 	console.log(parent);
@@ -247,10 +259,16 @@ console.log(standardOPFxml);
 
 //ナビゲーションファイル
 var navigationXml = (new DOMParser()).parseFromString(navigation, 'text/xml');
-
-console.log(navigationXml.querySelectorAll("li")[2]);
+//console.log(navigationXml.querySelectorAll("li")[2]);
 navigation = (new XMLSerializer()).serializeToString(navigationXml);
 
+//toc.ncx ncx:meta name="dtb:uid"
+var ncxXml = (new DOMParser()).parseFromString(ncx, 'text/xml');
+ncxXml.querySelector("meta[name='dtb:uid']").setAttribute("content", objV4.urn);
+ncxXml.querySelector("docTitle").childNodes[1].textContent=$("#title").val();
+ncxXml.querySelector("docAuthor").childNodes[1].textContent=$("#author1").val();
+ncx = (new XMLSerializer()).serializeToString(ncxXml);
+console.log(ncxXml);
 
 //表紙XHTML　coverxhtml
 var coverxhtmlXml = (new DOMParser()).parseFromString(coverxhtml, 'text/xml');
@@ -263,7 +281,7 @@ svg.setAttribute("viewBox", '0 0 '+$("#imgwidth").val() +' '+$("#imgheight").val
 imagesize.setAttribute("width",$("#imgwidth").val());
 imagesize.setAttribute("height",$("#imgheight").val());
 //画像ファイル名の設定
-//imagesize.setAttributeNS("http://www.w3.org/1999/xlink","href","../image/"+"test.jpg");
+imagesize.setAttributeNS("http://www.w3.org/1999/xlink","href","../image/cover."+coverFO.ext);
 
 coverxhtml = (new XMLSerializer()).serializeToString(coverxhtmlXml);
 console.log(viewport.content);
@@ -271,15 +289,27 @@ console.log(coverxhtmlXml);
 console.log(imagesize.getAttributeNS("http://www.w3.org/1999/xlink","href"));
 
 //ページXHTML　pagexhtml
-pagexhtml=coverxhtml;
+//pagexhtml=coverxhtml;
 //繰り返し page1~imgFO.lengthまで
+var pagexhtmlXml = (new DOMParser()).parseFromString(pagexhtml, 'text/xml');
+pagexhtmlXml.querySelector('title').textContent=$("#title").val();
+var viewport = pagexhtmlXml.querySelector("meta[content]");
+var svg = pagexhtmlXml.querySelector("svg[viewBox]");
+var imagesize = pagexhtmlXml.querySelector("image");
+viewport.setAttribute("content", 'width='+$("#imgwidth").val() +' ,'+'height='+$("#imgheight").val());
+svg.setAttribute("viewBox", '0 0 '+$("#imgwidth").val() +' '+$("#imgheight").val());
+imagesize.setAttribute("width",$("#imgwidth").val());
+imagesize.setAttribute("height",$("#imgheight").val());
 
 for (i = 0; i < imgFO.length; i++){
-var pagexhtmlXml = (new DOMParser()).parseFromString(pagexhtml, 'text/xml');
+//<body epub:type="cover">の属性の削除
+//var body = pagexhtmlXml .getElementsByTagName("body"); 
+//body.removeAttributeNS("http://www.w3.org/1999/xhtml","type");
+var imagesize = pagexhtmlXml.querySelector("image");
 imagesize.setAttributeNS("http://www.w3.org/1999/xlink","href","../image/"+imgFO[i].id+"."+imgFO[i].ext);
 pages[i] = (new XMLSerializer()).serializeToString(pagexhtmlXml);
 	}
-
+console.log(pages);
 }
 
 //zip圧縮
@@ -307,14 +337,14 @@ xhtml.file("p-cover.xhtml",coverxhtml);
 for (j = 0; j < imgFO.length; j++){
 xhtml.file("p-"+ ('0000' + (j+1) ).slice( -3 )+".xhtml", pages[j]);
 }
-img.file("cover.jpg", coverFO.data.split('base64,')[1], {base64: true});
+img.file("cover."+coverFO.ext, coverFO.data.split('base64,')[1], {base64: true});
 for (j = 0; j < imgFO.length; j++){
 img.file("i-"+ ('0000' + (j+1) ).slice( -3 )+"."+imgFO[j].ext, imgFO[j].data.split('base64,')[1], {base64: true});
 }
 zip.generateAsync({type:"blob"})
 .then(function(content) {
 // see FileSaver.js
-saveAs(content, "example.epub");
+saveAs(content, $("#title").val()+".epub");
 });
   });
 });
