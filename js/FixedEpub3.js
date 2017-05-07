@@ -285,12 +285,12 @@ imagesize.setAttribute("height",$("#imgheight").val());
 imagesize.setAttributeNS("http://www.w3.org/1999/xlink","href","../image/cover."+coverFO.ext);
 
 coverxhtml = (new XMLSerializer()).serializeToString(coverxhtmlXml);
-console.log(viewport.content);
-console.log(coverxhtmlXml);
-console.log(imagesize.getAttributeNS("http://www.w3.org/1999/xlink","href"));
+//console.log(viewport.content);
+//console.log(coverxhtmlXml);
+//console.log(imagesize.getAttributeNS("http://www.w3.org/1999/xlink","href"));
 
 //ページXHTML　pagexhtml
-//pagexhtml=coverxhtml;
+//pagexhtmlの初期設定
 //繰り返し page1~imgFO.lengthまで
 var pagexhtmlXml = (new DOMParser()).parseFromString(pagexhtml, 'text/xml');
 pagexhtmlXml.querySelector('title').textContent=$("#title").val();
@@ -303,9 +303,6 @@ imagesize.setAttribute("width",$("#imgwidth").val());
 imagesize.setAttribute("height",$("#imgheight").val());
 
 for (i = 0; i < imgFO.length; i++){
-//<body epub:type="cover">の属性の削除
-//var body = pagexhtmlXml .getElementsByTagName("body"); 
-//body.removeAttributeNS("http://www.w3.org/1999/xhtml","type");
 var imagesize = pagexhtmlXml.querySelector("image");
 imagesize.setAttributeNS("http://www.w3.org/1999/xlink","href","../image/"+imgFO[i].id+"."+imgFO[i].ext);
 pages[i] = (new XMLSerializer()).serializeToString(pagexhtmlXml);
