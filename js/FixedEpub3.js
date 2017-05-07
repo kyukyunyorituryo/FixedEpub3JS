@@ -1,15 +1,16 @@
 //画像ファイル配列オブジェクト
-var imgFO= [];
 //imgFO = [{file_id:"",file_name:'cover.jpg',data:'',type:'image/jpeg'}];
+var imgFO= [];
 
-//表紙画像入力
+//表紙画像オブジェクト
 var coverFO= {file_id:"cover",file_name:'',data:'',type:''};
 //xhtml出力用
 var pages=[];
 //UUID宣言
+//uuid ver.4
 var objV4 = UUID.genV4();
 
-
+//表紙画像選択
  function CoverFileSelect(evt) {
     var files = evt.target.files; // FileList object
 
@@ -74,12 +75,9 @@ document.addEventListener("DOMContentLoaded", function(){
 //          console.log(image.width);
 //          console.log(image.height);
 //};
-console.log(theFile.name);
-console.log(theFile.type);
+//console.log(theFile.name);
+//console.log(theFile.type);
 imgFO.push({file_name:theFile.name,data:e.target.result,type:theFile.type});
-//画像ファイル名での整列
-//通し番号ファイル名　 id="i-001"
-//imgFO[imgFO.length - 1].id="i-"+ ('0000' + (imgFO.length) ).slice( -3 );
         };
       })(f);
 
@@ -102,10 +100,11 @@ var coverxhtml='<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE html>\n<html x
 var pagexhtml='<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" >\n<head>\n<meta charset="UTF-8"/>\n<title>作品名</title>\n<link rel="stylesheet" type="text/css" href="../style/fixed-layout-jp.css"/>\n<meta name="viewport" content="width=848, height=1200"/>\n</head>\n<body>\n<div class="main">\n<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 848 1200">\n<image width="848" height="1200" xlink:href="../image/i-002.jpg"/>\n</svg>\n</div>\n</body>\n</html>';
 //NCX
 var ncx='<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<!-- For compatibility with ePub2 Player -->\n<ncx:ncx xmlns:ncx="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">\n  <ncx:head>\n    <ncx:meta name="dtb:uid" content="urn:uuid:A649F639-6C1F-1014-8CC3-F813564D7508"/>\n    <ncx:meta name="dtb:depth" content="-1"/>\n    <ncx:meta name="dtb:totalPageCount" content="0"/>\n    <ncx:meta name="dtb:maxPageNumber" content="0"/>\n  </ncx:head>\n  <ncx:docTitle>\n    <ncx:text>title</ncx:text>\n  </ncx:docTitle>\n  <ncx:docAuthor>\n    <ncx:text>author</ncx:text>\n  </ncx:docAuthor>\n  <ncx:navMap>\n    <ncx:navPoint id="p01" playOrder="1">\n      <ncx:navLabel>\n        <ncx:text>navigation</ncx:text>\n      </ncx:navLabel>\n      <ncx:content src="xhtml/p-cover.xhtml"/>\n    </ncx:navPoint>\n\n    <ncx:navPoint id="about" playOrder="2">\n      <ncx:navLabel>\n        <ncx:text>目次</ncx:text>\n      </ncx:navLabel>\n      <ncx:content src="xhtml/p-001.xhtml"/>\n    </ncx:navPoint>\n  </ncx:navMap>\n</ncx:ncx>';
+//CSS
 var layout='@charset "UTF-8";\n\nhtml,\nbody {\n  margin:    0;\n  padding:   0;\n  font-size: 0;\n}\nsvg {\n  margin:    0;\n  padding:   0;\n}\n';
+
 //EPUB3テンプレートの書換え　DOMParserを使って書き換える。
 
-//OPFファイルの書換
 function rewrite(){
 //キンドルの場合kindleOPF、それ以外はstandardOPFに設定する。
 var flag = document.getElementById("radio1").checked;
@@ -117,6 +116,8 @@ if(flag){standardOPF=kindleOPF};
     if(a.file_name > b.file_name) return 1;
     return 0;
 });
+
+//OPFファイルの書換
 var standardOPFxml = (new DOMParser()).parseFromString(standardOPF, 'text/xml');
 //タイトル
 standardOPFxml.getElementById('title').textContent=$("#title").val();
