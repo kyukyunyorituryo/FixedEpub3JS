@@ -17,19 +17,22 @@
        <script type="text/javascript" src="js/uuid.js"></script>
        <script type="text/javascript" src="js/FixedEpub3.js"></script>
   </head>
-  <body>
+  <body >
       <div class="container bg-info">
       <h2>漫画のEPUB３を作成する</h2>
       <h3>端末の指定</h3>
       <label class="checkbox-inline"><input type="radio" name="radio" id="radio1" value="radio1" checked="">キンドル</label>
 <label class="checkbox-inline"><input type="radio" name="radio" id="radio2" value="radio2">koboなど</label>
  <h3>入力欄</h3>
+ 	<div class="form-group ">
           <label class="label label-primary">表題</label>
-          <input  type="text" class="form-control" id="title"placeholder="タイトル名">
+          <input  type="text" class="form-control " id="title"placeholder="タイトル名">
+          
           <label class="label label-primary">著者１</label>
           <input   type="text" class="form-control" id="author1" placeholder="著者名１">
           <label class="label label-primary">著者２</label>
-          <input   type="text" class="form-control" id="author2" placeholder="著者名２">
+         
+          <input   type="text" class="form-control" id="author2" placeholder="著者名２"> 
           <label class="label label-primary">表紙画像</label>
           <input type="file" id="coverfile" name="coverfile">
           <output id="coverthumb"></output>
@@ -37,7 +40,7 @@
           <input   type="number" class="form-control" id="imgwidth" min="1" value="800"placeholder="800">
           <label class="label label-primary">画像の高さ</label>
           <input   type="number" class="form-control" id="imgheight" min="1" value="1200"placeholder="1200">
-
+</div>
 <style>
   .thumb {
     height: 75px;
@@ -50,7 +53,35 @@
 <input type="file" id="files" name="files[]" multiple />
 <output id="list"></output>
 </div>
+<!--処理が未完成のためコメントアウト
+    <h3>目次の編集</h3>
+<form class="form-inline">
+	<div class="form-group">
+		<label class="sr-only" for="InputSelect">選択</label>
+		<select class="form-control" id="InputSelect">
+			<option>表紙</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label class="sr-only" for="InputEmail">目次の書換</label>
+		<input type="email" class="form-control" id="InputEmail" placeholder="目次タイトル">
+	</div>
+	</form>
+<form class="form-inline">
+	<div class="form-group">
+		<label class="sr-only" for="InputSelect">選択</label>
+		<select class="form-control" id="InputSelect">
+			<option>１ページ目</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label class="sr-only" for="InputEmail">目次の書換</label>
+		<input type="email" class="form-control" id="InputEmail" placeholder="目次タイトル">
+	</div>
 
+	<button type="submit" class="btn btn-default">追加</button>
+</form>
+-->
     <h3>ファイルの出力</h3>
   <div >    <label class="checkbox-inline"><input type="radio" name="radio" id="radio3" value="radio3" checked="">名前順</label>
 <label class="checkbox-inline"><input type="radio" name="radio" id="radio4" value="radio4"disabled="disabled">日付順</label></div>

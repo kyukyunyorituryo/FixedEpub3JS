@@ -132,10 +132,14 @@ var metaall = standardOPFxml.querySelectorAll("meta[refines='#creator01']");
 for  (i = 0; i < metaall.length; i++){
 metaall[i].parentNode.removeChild(metaall[i]);}
 //著者２
+//
 standardOPFxml.getElementById('creator02').textContent=$("#author2").val();
 var metaall = standardOPFxml.querySelectorAll("meta[refines='#creator02']");
 for  (i = 0; i < metaall.length; i++){
 metaall[i].parentNode.removeChild(metaall[i]);}
+if ($("#author2").val()==null){
+
+}
 //出版社
 var node = standardOPFxml.getElementById("publisher");
 if(node != null){
@@ -178,6 +182,7 @@ if (imgFO[j].id) {
 imgFO[j].id="i-"+ ('0000' + (j+1) ).slice( -3 );
 if(imgFO[j].type=="image/jpeg"){imgFO[j].ext="jpg"};
 if(imgFO[j].type=="image/png"){imgFO[j].ext="png"};
+//svg: "image/svg+xml"
 	var ele = standardOPFxml.createElement("item");
 	ele.setAttribute("media-type", imgFO[j].type);
 	ele.setAttribute("id", imgFO[j].id);
