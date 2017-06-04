@@ -137,8 +137,9 @@ standardOPFxml.getElementById('creator02').textContent=$("#author2").val();
 var metaall = standardOPFxml.querySelectorAll("meta[refines='#creator02']");
 for  (i = 0; i < metaall.length; i++){
 metaall[i].parentNode.removeChild(metaall[i]);}
-if ($("#author2").val()==null){
-
+if ($("#author2").val()==""){
+var node = standardOPFxml.getElementById('creator02');
+node.parentNode.removeChild(node);
 }
 //出版社
 var node = standardOPFxml.getElementById("publisher");
@@ -265,7 +266,10 @@ console.log(standardOPFxml);
 
 //ナビゲーションファイル
 var navigationXml = (new DOMParser()).parseFromString(navigation, 'text/xml');
-//console.log(navigationXml.querySelectorAll("li")[2]);
+navigationXml.querySelector("title").textContent=$("#title").val();
+navigationXml.querySelectorAll("li")[0].childNodes[0].textContent=$("#covertext").val();
+navigationXml.querySelectorAll("li")[1].childNodes[0].textContent=$("#navtext1").val();
+//console.log(navigationXml.querySelectorAll("li")[1]);
 navigation = (new XMLSerializer()).serializeToString(navigationXml);
 
 //toc.ncx ncx:meta name="dtb:uid"
@@ -273,6 +277,8 @@ var ncxXml = (new DOMParser()).parseFromString(ncx, 'text/xml');
 ncxXml.querySelector("meta[name='dtb:uid']").setAttribute("content", objV4.urn);
 ncxXml.querySelector("docTitle").childNodes[1].textContent=$("#title").val();
 ncxXml.querySelector("docAuthor").childNodes[1].textContent=$("#author1").val();
+ncxXml.getElementById("p01").childNodes[1].childNodes[1].textContent=$("#covertext").val();
+ncxXml.getElementById("about").childNodes[1].childNodes[1].textContent=$("#navtext1").val();
 ncx = (new XMLSerializer()).serializeToString(ncxXml);
 console.log(ncxXml);
 
