@@ -177,9 +177,9 @@ var imgdf = standardOPFxml.createDocumentFragment();
 //繰り返し用
 for (j = 0; j < imgFO.length; j++){
 //２重実行の停止
-if (imgFO[j].id) {
-        break;
-    }
+//if (imgFO[j].id) {
+//        break;
+//    }
 imgFO[j].id="i-"+ ('0000' + (j+1) ).slice( -3 );
 if(imgFO[j].type=="image/jpeg"){imgFO[j].ext="jpg"};
 if(imgFO[j].type=="image/png"){imgFO[j].ext="png"};
@@ -201,6 +201,7 @@ var	reference = standardOPFxml.getElementById('cover');
 //coverFO.file_id+"."+coverFO.ext
 	parent.insertBefore(imgdf,reference.nextSibling);
 //	parent.insertBefore(ele,reference.nextSibling);
+
 	console.log(parent);
 
 //manifest xhtml
@@ -218,9 +219,9 @@ var xele = standardOPFxml.createElement("item");
 
 for (j = 0; j < imgFO.length; j++){
 //２重実行の停止
-if (imgFO[j].xhid ) {
-        break;
-    }
+//if (imgFO[j].xhid ) {
+//        break;
+//    }
 imgFO[j].xhid="p-"+ ('0000' + (j+1) ).slice( -3 );
 var xele = standardOPFxml.createElement("item");
 	xele.setAttribute("media-type", "application/xhtml+xml");
@@ -231,6 +232,7 @@ var xele = standardOPFxml.createElement("item");
 	 xhtdf.appendChild(xele);
 }
 
+
  //ココまで繰り返す
 var	xparent =standardOPFxml.querySelector("manifest");
 console.log(xele)
@@ -238,6 +240,7 @@ var	xreference = standardOPFxml.getElementById('p-cover');
 //	parent.appendChild(ele);
 //	xparent.insertBefore(xele,xreference.nextSibling);
 	xparent.insertBefore(xhtdf,xreference.nextSibling);
+
 	console.log(xparent);
 
 //spine
@@ -245,9 +248,9 @@ var	xreference = standardOPFxml.getElementById('p-cover');
 var spinedf = standardOPFxml.createDocumentFragment();
 for (j = 0; j < imgFO.length; j++){
 //２重実行の停止
-if (standardOPFxml.querySelector("itemref[idref='p-001']") != null) {
-        break;
-    }
+//if (standardOPFxml.querySelector("itemref[idref='p-001']") != null) {
+//        break;
+//    }
 var spele = standardOPFxml.createElement("itemref");
 	spele.setAttribute("linear", "yes");
 	spele.setAttribute("idref", imgFO[j].xhid);
@@ -255,15 +258,18 @@ var spele = standardOPFxml.createElement("itemref");
 	if(j% 2 == 1){spele.setAttribute("properties", "page-spread-left")};
 	 spinedf.appendChild(spele);
 }
+
+
 var	sparent =standardOPFxml.querySelector("spine");
 console.log(spele)
 var	sreference = standardOPFxml.querySelector("itemref[idref='p-cover']");
 	sparent.insertBefore(spinedf,sreference.nextSibling);
+
 	console.log(sparent);
 //XMLシリアライズ
-standardOPF = (new XMLSerializer()).serializeToString(standardOPFxml);
-console.log(standardOPFxml);
+standardOPFS = (new XMLSerializer()).serializeToString(standardOPFxml);
 
+console.log(standardOPFxml);
 //ナビゲーションファイル
 var navigationXml = (new DOMParser()).parseFromString(navigation, 'text/xml');
 navigationXml.querySelector("title").textContent=$("#title").val();
@@ -319,6 +325,7 @@ imagesize.setAttributeNS("http://www.w3.org/1999/xlink","href","../image/"+imgFO
 pages[i] = (new XMLSerializer()).serializeToString(pagexhtmlXml);
 	}
 console.log(pages);
+return standardOPFS;
 }
 
 //zip圧縮
@@ -329,13 +336,13 @@ jQuery(function($) {
       return;
   }
   $("#demo").click(function () {
-rewrite();
+standardOPFS=rewrite();
 var zip = new JSZip();
 zip.file("mimetype", "application/epub+zip");
 var meta = zip.folder("META-INF");
 meta.file("container.xml", containerXML);
 var item = zip.folder("item");
-item.file("standard.opf", standardOPF);
+item.file("standard.opf", standardOPFS);
 item.file("nav.xhtml", navigation);
 item.file("toc.ncx", ncx);
 var img = zip.folder("item/image");
