@@ -19,10 +19,13 @@
   </head>
   <body >
       <div class="container bg-info">
+      <!--端末選択を削除
+
       <h2>漫画のEPUB３を作成する</h2>
       <h3>端末の指定</h3>
       <label class="checkbox-inline"><input type="radio" name="radio" id="radio1" value="radio1" checked="">キンドル</label>
 <label class="checkbox-inline"><input type="radio" name="radio" id="radio2" value="radio2">koboなど</label>
+-->	
  <h3>入力欄</h3>
  	<div class="form-group ">
           <label class="label label-primary">表題</label>
@@ -49,12 +52,17 @@
   }
 </style>
   <div >
-<label class="label label-primary">画像ファイルの読み込み</label>
+<label class="label label-primary">本文ファイルの読み込み</label>
 <input type="file" id="files" name="files[]" multiple />
 <output id="list"></output>
 </div>
 
     <h3>目次の編集</h3>
+    <label class="label label-primary">画像の整列</label>
+
+     <div >    <label class="checkbox-inline"><input type="radio" name="radio" id="radio3" value="radio3" checked="">名前順</label>
+<label class="checkbox-inline"><input type="radio" name="radio" id="radio4" value="radio4"disabled="disabled">日付順</label></div>
+    <label class="label label-primary">目次の選択</label>
 <form class="form-inline">
 	<div class="form-group">
 		<label class="sr-only" for="InputSelect">選択</label>
@@ -84,8 +92,7 @@
 </form>
 
     <h3>ファイルの出力</h3>
-  <div >    <label class="checkbox-inline"><input type="radio" name="radio" id="radio3" value="radio3" checked="">名前順</label>
-<label class="checkbox-inline"><input type="radio" name="radio" id="radio4" value="radio4"disabled="disabled">日付順</label></div>
+ 
 <button id="demo" class="btn btn-primary">保存</button>
 <span id="status"></span>
 
