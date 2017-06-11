@@ -31,7 +31,9 @@ var objV4 = UUID.genV4();
           var span = document.createElement('span');
           span.innerHTML = ['<img class="thumb" src="', e.target.result,
                             '" title="', escape(theFile.name), '"/>'].join('');
-          document.getElementById('coverthumb').insertBefore(span, null);
+        if (document.getElementById('coverthumb').hasChildNodes()) { 
+        document.getElementById('coverthumb').replaceChild(span,document.getElementById('coverthumb').firstChild);}
+         else { document.getElementById('coverthumb').insertBefore(span, null);}
           coverFO=({file_name:theFile.name,data:e.target.result,type:theFile.type});
           if(coverFO.type=="image/jpeg"){coverFO.ext="jpg"};
 	if(coverFO.type=="image/png"){coverFO.ext="png"};
