@@ -107,7 +107,7 @@ var layout='@charset "UTF-8";\n\nhtml,\nbody {\n  margin:    0;\n  padding:   0;
 
 //EPUB3テンプレートの書換え　DOMParserを使って書き換える。
 
-function rewrite(){
+function rewriteOPF(){
 //キンドルの場合kindleOPF、それ以外はstandardOPFに設定する。
 //var flag = document.getElementById("radio1").checked;
 //if(flag){standardOPF=kindleOPF};
@@ -251,7 +251,10 @@ var	sreference = standardOPFxml.querySelector("itemref[idref='p-cover']");
 //XMLシリアライズ
 standardOPFS = (new XMLSerializer()).serializeToString(standardOPFxml);
 console.log(standardOPFxml);
-
+//2重実行の防止
+return standardOPFS;
+}
+function rewriteNAV(){
 //ナビゲーションファイル
 var navigationXml = (new DOMParser()).parseFromString(navigation, 'text/xml');
 navigationXml.querySelector("title").textContent=$("#title").val();
@@ -259,7 +262,8 @@ navigationXml.querySelectorAll("li")[0].childNodes[0].textContent=$("#covertext"
 navigationXml.querySelectorAll("li")[1].childNodes[0].textContent=$("#navtext1").val();
 //console.log(navigationXml.querySelectorAll("li")[1]);
 navigation = (new XMLSerializer()).serializeToString(navigationXml);
-
+}
+function rewriteNCX(){
 //toc.ncx ncx:meta name="dtb:uid"
 var ncxXml = (new DOMParser()).parseFromString(ncx, 'text/xml');
 ncxXml.querySelector("meta[name='dtb:uid']").setAttribute("content", objV4.urn);
@@ -269,7 +273,8 @@ ncxXml.getElementById("p01").childNodes[1].childNodes[1].textContent=$("#coverte
 ncxXml.getElementById("about").childNodes[1].childNodes[1].textContent=$("#navtext1").val();
 ncx = (new XMLSerializer()).serializeToString(ncxXml);
 console.log(ncxXml);
-
+}
+function rewrite(){
 //表紙XHTML　coverxhtml
 var coverxhtmlXml = (new DOMParser()).parseFromString(coverxhtml, 'text/xml');
 coverxhtmlXml.querySelector('title').textContent=$("#title").val();
@@ -307,8 +312,7 @@ imagesize.setAttributeNS("http://www.w3.org/1999/xlink","href","../image/"+imgFO
 pages[i] = (new XMLSerializer()).serializeToString(pagexhtmlXml);
 	}
 console.log(pages);
-//2重実行の防止
-return standardOPFS;
+
 }
 
 //zip圧縮
@@ -319,7 +323,10 @@ jQuery(function($) {
       return;
   }
   $("#demo").click(function () {
-standardOPFS=rewrite();
+standardOPFS=rewriteOPF();
+rewriteNAV();
+rewriteNCX();
+rewrite();
 var zip = new JSZip();
 zip.file("mimetype", "application/epub+zip");
 var meta = zip.folder("META-INF");
