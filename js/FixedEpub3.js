@@ -37,6 +37,15 @@ var objV4 = UUID.genV4();
           coverFO=({file_name:theFile.name,data:e.target.result,type:theFile.type});
           if(coverFO.type=="image/jpeg"){coverFO.ext="jpg"};
 	if(coverFO.type=="image/png"){coverFO.ext="png"};
+	//チェックコード
+var image =new Image();
+image.src = e.target.result;
+image.onload = function() {
+console.log(image.width);
+console.log(image.height);
+document.getElementById("imgwidth").value=image.width;
+document.getElementById("imgheight").value=image.height;
+};
         };
       })(f);
 
@@ -265,6 +274,7 @@ console.log(spele)
 //XMLシリアライズ
 standardOPFS = (new XMLSerializer()).serializeToString(standardOPFxml);
 console.log(standardOPFxml);
+standardOPFS=vkbeautify.xml(standardOPFS);
 //2重実行の防止
 return standardOPFS;
 }

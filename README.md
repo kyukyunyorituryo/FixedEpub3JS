@@ -11,10 +11,10 @@ https://kyukyunyorituryo.github.io/FixedEpub3JS/
 
 ### 入力欄
 * 表題、著者１、著者２
-タイトルや著者名などを入力する。読み仮名や、出版社名を入れられるソフトもある。詳細設定モードを作るかもしれない。
+タイトルや著者名などを入力する。読み仮名や、出版社名は省いている。詳細設定モードを作るかもしれない。
 
 * 表紙画像選択
-表紙画像はローカルファイルから選択することになるが、続けて2枚選択できてしまうバグが。
+表紙画像はローカルファイルから選択することになる。
 
 * 画像ファイル解像度
 画像ファイル解像度は手動で入力するようにしている。
@@ -31,3 +31,4 @@ https://kyukyunyorituryo.github.io/FixedEpub3JS/
 * FileSaver.js https://github.com/eligrey/FileSaver.js/
 * bootstrap http://getbootstrap.com/
 * jquery https://jquery.com/
+* vkBeautify https://github.com/vkiryukhin/vkBeautify
