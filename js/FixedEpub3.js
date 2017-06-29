@@ -45,6 +45,7 @@ console.log(image.width);
 console.log(image.height);
 document.getElementById("imgwidth").value=image.width;
 document.getElementById("imgheight").value=image.height;
+
 };
         };
       })(f);
@@ -80,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function(){
                             '" title="', theFile.name, '"/>'].join('');
           document.getElementById('list').insertBefore(span, null);
         imgFO.push({file_name:theFile.name,data:e.target.result,type:theFile.type});
+        addselect();
 //チェックコード
 //        var image =new Image();
 //          image.src = e.target.result;
@@ -97,7 +99,8 @@ document.addEventListener("DOMContentLoaded", function(){
     }
   }
 document.addEventListener("DOMContentLoaded", function(){
-  document.getElementById('files').addEventListener('change', handleFileSelect, false);});
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+  });
 //sort　本文画像の整列
 function mySort() {
 var list = document.getElementById('list');
@@ -122,12 +125,27 @@ var myArray = Array.prototype.slice.call(Nlist);
     if(a.file_name > b.file_name) return 1;
     return 0;
 });
-
+addselect();
 }
+//selectの追加
+function addselect(){
+var options = document.getElementById("InputSelect2");
+$('select#InputSelect2').children().remove();
+for (j = 0; j < imgFO.length; j++){
+$("#InputSelect2").append("<option>"+ imgFO[j].file_name +"</option>");
+}
+};
+//document.addEventListener("DOMContentLoaded", function(){
+//document.getElementById('InputSelect2').addEventListener('click', addselect, false);
+//});
+//.parentNode.removeChild()
+
+
 //目次の追加
 function addmenu(){
-var menu = document.getElementsByTagName("form")[1]
+var menu = document.getElementsByTagName("form")[1];
 var cmenu= menu.cloneNode(true);
+cmenu.childNodes[1].childNodes[3].id=document.getElementsByTagName("form").length+1;
 var par=document.getElementById("bg");
 par.insertBefore(cmenu,menu.nextSibling);
 }
@@ -310,8 +328,30 @@ var navigationXml = (new DOMParser()).parseFromString(navigation, 'text/xml');
 navigationXml.querySelector("title").textContent=$("#title").val();
 navigationXml.querySelectorAll("li")[0].childNodes[0].textContent=$("#covertext").val();
 navigationXml.querySelectorAll("li")[1].childNodes[0].textContent=$("#navtext1").val();
-//console.log(navigationXml.querySelectorAll("li")[1]);
+var select =document.getElementById("InputSelect2").selectedIndex
+var pagenum = navigationXml.querySelectorAll("li")[1].childNodes[0]
+pagenum.setAttribute("href", "xhtml/"+imgFO[select].xhid+".xhtml")
+var	reference = navigationXml.querySelectorAll("li")[1];
+var Nav = reference.cloneNode(true);
+
+/*
+var df = navigationXml.createDocumentFragment();
+var menu = document.getElementsByTagName("form");
+for (j = 0; j < menu.length; j++){ 
+var	reference = navigationXml.querySelectorAll("li")[1];
+var Nav = reference.cloneNode(true);
+//var ele = navigationXml.createElement("itemref");
+	Nav.firstChild.setAttribute("href", "xhtml/"+imgFO[j].xhid+".xhtml");
+	Nav.firstChild.text=$("#navtext1").val();
+	 df.appendChild(Nav);
+}
+var	parent =navigationXml.querySelector("ol");
+console.log(Nav)
+	parent.insertBefore(df,reference.nextSibling);
+	console.log(parent);
+*/
 navigation = (new XMLSerializer()).serializeToString(navigationXml);
+console.log(navigationXml);
 }
 function rewriteNCX(){
 //toc.ncx ncx:meta name="dtb:uid"
