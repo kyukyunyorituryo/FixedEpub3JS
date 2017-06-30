@@ -361,6 +361,11 @@ ncxXml.querySelector("docTitle").childNodes[1].textContent=$("#title").val();
 ncxXml.querySelector("docAuthor").childNodes[1].textContent=$("#author1").val();
 ncxXml.getElementById("p01").childNodes[1].childNodes[1].textContent=$("#covertext").val();
 ncxXml.getElementById("about").childNodes[1].childNodes[1].textContent=$("#navtext1").val();
+var select =document.getElementById("InputSelect2").selectedIndex;
+ncxXml.getElementById("about").childNodes[3].setAttribute("src", "xhtml/"+imgFO[select].xhid+".xhtml");
+//navPointの取得
+//ncxXml.querySelectorAll("navPoint")[1]
+//
 ncx = (new XMLSerializer()).serializeToString(ncxXml);
 console.log(ncxXml);
 }
