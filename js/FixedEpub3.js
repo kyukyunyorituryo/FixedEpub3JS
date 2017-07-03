@@ -129,12 +129,14 @@ addselect();
 }
 //selectの追加
 function addselect(){
-var options = document.getElementById("InputSelect2");
-$('select#InputSelect2').children().remove();
+var navtext= document.getElementsByName("selectNav")
+
+$("*[name=selectNav]").children().remove();
 for (j = 0; j < imgFO.length; j++){
-$("#InputSelect2").append("<option>"+ imgFO[j].file_name +"</option>");
+$("*[name=selectNav]").append("<option>"+ imgFO[j].file_name +"</option>");
 }
 };
+
 //document.addEventListener("DOMContentLoaded", function(){
 //document.getElementById('InputSelect2').addEventListener('click', addselect, false);
 //});
@@ -334,6 +336,7 @@ pagenum.setAttribute("href", "xhtml/"+imgFO[select].xhid+".xhtml")
 var	reference = navigationXml.querySelectorAll("li")[1];
 var Nav = reference.cloneNode(true);
 
+
 /*
 var df = navigationXml.createDocumentFragment();
 var menu = document.getElementsByTagName("form");
@@ -349,6 +352,10 @@ var	parent =navigationXml.querySelector("ol");
 console.log(Nav)
 	parent.insertBefore(df,reference.nextSibling);
 	console.log(parent);
+*/
+/*
+var navtext= document.getElementsByName("selectNav")
+navtext[0].selectedIndex=
 */
 navigation = (new XMLSerializer()).serializeToString(navigationXml);
 console.log(navigationXml);
