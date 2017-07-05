@@ -87,7 +87,9 @@
 		<input type="text" class="form-control" id="covertext" value="表紙" placeholder="目次タイトル">
 	</div>
 	</form>
-<form class="form-inline">
+
+<form class="form-inline" name="formNav">
+
 	<div class="form-group">
 		<label class="sr-only" for="InputSelect">選択</label>
 		<select class="form-control" id="InputSelect2" name= "selectNav">
@@ -96,13 +98,13 @@
 	</div>
 	<div class="form-group">
 		<label class="sr-only" >目次の書換</label>
-		<input type="text" class="form-control" id="navtext1" value="目次" placeholder="目次タイトル">
+		<input type="text" class="form-control" id="navtext1" name= "editNav"value="目次" placeholder="目次タイトル">
 	</div>
 </form>
 
-<!--処理が未完成のためコメントアウト
+<!--処理が未完成のためコメントアウト-->
 <button type="submit" class="btn btn-default" onclick="addmenu()">追加</button>
- -->
+ 
 
     <h3>ファイルの出力</h3>
  

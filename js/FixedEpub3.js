@@ -156,13 +156,13 @@ var containerXML ='<?xml version="1.0" encoding="UTF-8"?>\n<container xmlns="urn
 var standardOPF = '<?xml version="1.0" encoding="utf-8"?>\n<package xmlns="http://www.idpf.org/2007/opf" version="3.0" xml:lang="ja" unique-identifier="unique-id" prefix="rendition: http://www.idpf.org/vocab/rendition/# ebpaj: http://www.ebpaj.jp/" >\n<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">\n<!-- 作品名 -->\n<dc:title id="title">作品名１</dc:title>\n<meta refines="#title" property="file-as">セイレツヨウサクヒンメイカナ01</meta>\n<!-- 著者名 -->\n<dc:creator id="creator01">著作者名１</dc:creator>\n<meta refines="#creator01" property="role" scheme="marc:relators">aut</meta>\n<meta refines="#creator01" property="file-as"> セイレツヨウチョサクシャメイカナ 01</meta>\n<meta refines="#creator01" property="display-seq">1</meta>\n<dc:creator id="creator02">著作者名２</dc:creator>\n<meta refines="#creator02" property="role" scheme="marc:relators">aut</meta>\n<meta refines="#creator02" property="file-as"> セイレツヨウチョサクシャメイカナ 02</meta>\n<meta refines="#creator02" property="display-seq">2</meta>\n<!-- 出版社名 -->\n<dc:publisher id="publisher">出版社名</dc:publisher>\n<meta refines="#publisher" property="file-as"> セイレツヨウシュッパンシャメイカナ</meta>\n<!-- 言語 -->\n<dc:language>ja</dc:language>\n<!-- ファイルid -->\n<dc:identifier id="unique-id">urn:uuid:860ddf31-55a4-449a-8cc9-3c1837657a15</dc:identifier>\n<!-- 更新日 -->\n<meta property="dcterms:modified">2012-01-01T00:00:00Z</meta>\n<!-- Fixed-Layout Documents指定 -->\n<meta property="rendition:layout">pre-paginated</meta>\n<meta property="rendition:spread">landscape</meta>\n<!-- etc. -->\n<meta property="ebpaj:guide-version">1.1</meta>\n</metadata>\n<manifest>\n<!-- navigation -->\n<item media-type="application/xhtml+xml" id="toc" href="nav.xhtml" properties="nav"/>\n<item media-type="application/x-dtbncx+xml" id="ncxtoc" href="toc.ncx"/>\n<!-- style -->\n<item media-type="text/css" id="fixed-layout-jp" href="style/fixed-layout-jp.css"/>\n<!-- image -->\n<item media-type="image/jpeg" id="cover" href="image/cover.jpg" />\n<!-- xhtml -->\n<item media-type="application/xhtml+xml" id="p-cover" href="xhtml/p-cover.xhtml" properties="svg" fallback="cover"/>\n</manifest>\n<spine toc="ncxtoc" page-progression-direction="rtl">\n<itemref linear="yes" idref="p-cover" properties="rendition:page-spread-center"/>\n</spine>\n</package>';
 //var kindleOPF ='<?xml version="1.0" encoding="utf-8"?>\n<package xmlns="http://www.idpf.org/2007/opf" version="3.0" xml:lang="ja" unique-identifier="unique-id" prefix="rendition: http://www.idpf.org/vocab/rendition/# ebpaj: http://www.ebpaj.jp/" >\n<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">\n<!-- 作品名 -->\n<dc:title id="title">作品名１</dc:title>\n<meta refines="#title" property="file-as">セイレツヨウサクヒンメイカナ01</meta>\n<!-- 著者名 -->\n<dc:creator id="creator01">著作者名１</dc:creator>\n<meta refines="#creator01" property="role" scheme="marc:relators">aut</meta>\n<meta refines="#creator01" property="file-as"> セイレツヨウチョサクシャメイカナ 01</meta>\n<meta refines="#creator01" property="display-seq">1</meta>\n<dc:creator id="creator02">著作者名２</dc:creator>\n<meta refines="#creator02" property="role" scheme="marc:relators">aut</meta>\n<meta refines="#creator02" property="file-as"> セイレツヨウチョサクシャメイカナ 02</meta>\n<meta refines="#creator02" property="display-seq">2</meta>\n<!-- 出版社名 -->\n<dc:publisher id="publisher">出版社名</dc:publisher>\n<meta refines="#publisher" property="file-as"> セイレツヨウシュッパンシャメイカナ</meta>\n<!-- 言語 -->\n<dc:language>ja</dc:language>\n<!-- ファイルid -->\n<dc:identifier id="unique-id">urn:uuid:860ddf31-55a4-449a-8cc9-3c1837657a15</dc:identifier>\n<!-- 更新日 -->\n<meta property="dcterms:modified">2012-01-01T00:00:00Z</meta>\n<!-- Fixed-Layout Documents指定 -->\n<meta name="original-resolution" content="600x837" />\n<meta name="primary-writing-mode" content="horizontal-rl" />\n<meta name="book-type" content="comic" />\n<meta content="true" name="zero-gutter" />\n<meta content="true" name="zero-margin" />\n<meta content="none" name="orientation-lock" />\n<meta content="true" name="fixed-layout" />\n<meta content="false" name="region-mag" />\n<!-- etc. -->\n<meta property="ebpaj:guide-version">1.1</meta>\n</metadata>\n<manifest>\n<!-- navigation -->\n<item media-type="application/xhtml+xml" id="toc" href="nav.xhtml" properties="nav"/>\n<item media-type="application/x-dtbncx+xml" id="ncxtoc" href="toc.ncx"/>\n<!-- style -->\n<item media-type="text/css" id="fixed-layout-jp" href="style/fixed-layout-jp.css"/>\n<!-- image -->\n<item media-type="image/jpeg" id="cover" href="image/cover.jpg" properties="cover-image"/>\n<!-- xhtml -->\n<item media-type="application/xhtml+xml" id="p-cover" href="xhtml/p-cover.xhtml" properties="svg" fallback="cover"/>\n</manifest>\n<spine toc="ncxtoc" page-progression-direction="rtl">\n<itemref linear="yes" idref="p-cover" properties="rendition:page-spread-center"/>\n</spine>\n</package>';
 //ナビゲーション
-var navigation= '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" >\n<head>\n<meta charset="UTF-8"/>\n<title>Navigation</title>\n</head>\n<body>\n<nav epub:type="toc" id="toc">\n<h1>Navigation</h1>\n<ol>\n<li><a href="xhtml/p-cover.xhtml">表紙</a></li>\n<li><a href="xhtml/p-001.xhtml">目次</a></li>\n</ol>\n</nav>\n</body>\n</html>';
+var navigation= '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" >\n<head>\n<meta charset="UTF-8"/>\n<title>Navigation</title>\n</head>\n<body>\n<nav epub:type="toc" id="toc">\n<h1>Navigation</h1>\n<ol>\n<li><a href="xhtml/p-cover.xhtml">表紙</a></li>\n</ol>\n</nav>\n</body>\n</html>';
 //カバーHTML
 var coverxhtml='<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" >\n<head>\n<meta charset="UTF-8"/>\n<title>作品名</title>\n<link rel="stylesheet" type="text/css" href="../style/fixed-layout-jp.css"/>\n<meta name="viewport" content="width=848, height=1200"/>\n</head>\n<body epub:type="cover">\n<div class="main">\n<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 848 1200">\n<image width="848" height="1200" xlink:href="../image/cover.jpg"/>\n</svg>\n</div>\n</body>\n</html>';
 //ページHTML
 var pagexhtml='<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" >\n<head>\n<meta charset="UTF-8"/>\n<title>作品名</title>\n<link rel="stylesheet" type="text/css" href="../style/fixed-layout-jp.css"/>\n<meta name="viewport" content="width=848, height=1200"/>\n</head>\n<body>\n<div class="main">\n<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 848 1200">\n<image width="848" height="1200" xlink:href="../image/i-002.jpg"/>\n</svg>\n</div>\n</body>\n</html>';
 //NCX
-var ncx='<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<!-- For compatibility with ePub2 Player -->\n<ncx:ncx xmlns:ncx="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">\n  <ncx:head>\n    <ncx:meta name="dtb:uid" content="urn:uuid:A649F639-6C1F-1014-8CC3-F813564D7508"/>\n    <ncx:meta name="dtb:depth" content="-1"/>\n    <ncx:meta name="dtb:totalPageCount" content="0"/>\n    <ncx:meta name="dtb:maxPageNumber" content="0"/>\n  </ncx:head>\n  <ncx:docTitle>\n    <ncx:text>title</ncx:text>\n  </ncx:docTitle>\n  <ncx:docAuthor>\n    <ncx:text>author</ncx:text>\n  </ncx:docAuthor>\n  <ncx:navMap>\n    <ncx:navPoint id="p01" playOrder="1">\n      <ncx:navLabel>\n        <ncx:text>navigation</ncx:text>\n      </ncx:navLabel>\n      <ncx:content src="xhtml/p-cover.xhtml"/>\n    </ncx:navPoint>\n\n    <ncx:navPoint id="about" playOrder="2">\n      <ncx:navLabel>\n        <ncx:text>目次</ncx:text>\n      </ncx:navLabel>\n      <ncx:content src="xhtml/p-001.xhtml"/>\n    </ncx:navPoint>\n  </ncx:navMap>\n</ncx:ncx>';
+var ncx='<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<!-- For compatibility with ePub2 Player -->\n<ncx:ncx xmlns:ncx="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">\n  <ncx:head>\n    <ncx:meta name="dtb:uid" content="urn:uuid:A649F639-6C1F-1014-8CC3-F813564D7508"/>\n    <ncx:meta name="dtb:depth" content="-1"/>\n    <ncx:meta name="dtb:totalPageCount" content="0"/>\n    <ncx:meta name="dtb:maxPageNumber" content="0"/>\n  </ncx:head>\n  <ncx:docTitle>\n    <ncx:text>title</ncx:text>\n  </ncx:docTitle>\n  <ncx:docAuthor>\n    <ncx:text>author</ncx:text>\n  </ncx:docAuthor>\n  <ncx:navMap>\n    <ncx:navPoint id="p01" playOrder="1">\n      <ncx:navLabel>\n        <ncx:text>navigation</ncx:text>\n      </ncx:navLabel>\n      <ncx:content src="xhtml/p-cover.xhtml"/>\n    </ncx:navPoint>\n  </ncx:navMap>\n</ncx:ncx>';
 //CSS
 var layout='@charset "UTF-8";\n\nhtml,\nbody {\n  margin:    0;\n  padding:   0;\n  font-size: 0;\n}\nsvg {\n  margin:    0;\n  padding:   0;\n}\n';
 
@@ -329,36 +329,36 @@ function rewriteNAV(){
 var navigationXml = (new DOMParser()).parseFromString(navigation, 'text/xml');
 navigationXml.querySelector("title").textContent=$("#title").val();
 navigationXml.querySelectorAll("li")[0].childNodes[0].textContent=$("#covertext").val();
+/*単体のナビゲーション編集
 navigationXml.querySelectorAll("li")[1].childNodes[0].textContent=$("#navtext1").val();
 var select =document.getElementById("InputSelect2").selectedIndex
 var pagenum = navigationXml.querySelectorAll("li")[1].childNodes[0]
 pagenum.setAttribute("href", "xhtml/"+imgFO[select].xhid+".xhtml")
 var	reference = navigationXml.querySelectorAll("li")[1];
 var Nav = reference.cloneNode(true);
-
-
-/*
+*/
 var df = navigationXml.createDocumentFragment();
-var menu = document.getElementsByTagName("form");
+var menu=$("*[name=formNav]");
+var navtext= document.getElementsByName("selectNav")
 for (j = 0; j < menu.length; j++){ 
-var	reference = navigationXml.querySelectorAll("li")[1];
+var	reference = navigationXml.querySelectorAll("li")[0];
 var Nav = reference.cloneNode(true);
-//var ele = navigationXml.createElement("itemref");
-	Nav.firstChild.setAttribute("href", "xhtml/"+imgFO[j].xhid+".xhtml");
-	Nav.firstChild.text=$("#navtext1").val();
+ var sele=navtext[j].selectedIndex;
+	Nav.firstChild.setAttribute("href", "xhtml/"+ imgFO[sele].xhid +".xhtml");
+	Nav.firstChild.text=$("*[name=editNav]")[j].value;
 	 df.appendChild(Nav);
 }
 var	parent =navigationXml.querySelector("ol");
 console.log(Nav)
 	parent.insertBefore(df,reference.nextSibling);
 	console.log(parent);
-*/
-/*
-var navtext= document.getElementsByName("selectNav")
-navtext[0].selectedIndex=
-*/
-navigation = (new XMLSerializer()).serializeToString(navigationXml);
+
+//XMLシリアライズ
+navigationS = (new XMLSerializer()).serializeToString(navigationXml);
 console.log(navigationXml);
+navigationS =vkbeautify.xml(navigationS);
+//2重実行の防止
+return navigationS;
 }
 function rewriteNCX(){
 //toc.ncx ncx:meta name="dtb:uid"
@@ -367,14 +367,42 @@ ncxXml.querySelector("meta[name='dtb:uid']").setAttribute("content", objV4.urn);
 ncxXml.querySelector("docTitle").childNodes[1].textContent=$("#title").val();
 ncxXml.querySelector("docAuthor").childNodes[1].textContent=$("#author1").val();
 ncxXml.getElementById("p01").childNodes[1].childNodes[1].textContent=$("#covertext").val();
+/*
 ncxXml.getElementById("about").childNodes[1].childNodes[1].textContent=$("#navtext1").val();
 var select =document.getElementById("InputSelect2").selectedIndex;
 ncxXml.getElementById("about").childNodes[3].setAttribute("src", "xhtml/"+imgFO[select].xhid+".xhtml");
+*/
+//ncxXml.getElementById("about").getAttribute("playOrder")
+//ncxXml.getElementById("about").getAttribute("id")
+//ncxXml.getElementById("p01")
+
+var df = ncxXml.createDocumentFragment();
+var menu=$("*[name=formNav]");
+var navtext= document.getElementsByName("selectNav")
+for (j = 0; j < menu.length; j++){ 
+var	reference = ncxXml.getElementById("p01");
+var Nav = reference.cloneNode(true);
+ var sele=navtext[j].selectedIndex;
+ 	Nav.setAttribute("playOrder",(j+2))
+ 	Nav.setAttribute("id","nav"+(j+1))
+ 	Nav.childNodes[1].childNodes[1].textContent=$("*[name=editNav]")[j].value;
+	Nav.childNodes[3].setAttribute("src", "xhtml/"+ imgFO[sele].xhid +".xhtml");
+	 df.appendChild(Nav);
+}
+var	parent =ncxXml.querySelector("navMap");
+console.log(Nav)
+	parent.insertBefore(df,reference.nextSibling);
+	console.log(parent);
+
 //navPointの取得
 //ncxXml.querySelectorAll("navPoint")[1]
 //
-ncx = (new XMLSerializer()).serializeToString(ncxXml);
+//XMLシリアライズ
+ncxS = (new XMLSerializer()).serializeToString(ncxXml);
 console.log(ncxXml);
+ncxS=vkbeautify.xml(ncxS);
+//2重実行の防止
+return ncxS;
 }
 function rewrite(){
 //表紙XHTML　coverxhtml
@@ -426,8 +454,8 @@ jQuery(function($) {
   }
   $("#demo").click(function () {
 standardOPFS=rewriteOPF();
-rewriteNAV();
-rewriteNCX();
+navigationS = rewriteNAV();
+ncxS=rewriteNCX();
 rewrite();
 var zip = new JSZip();
 zip.file("mimetype", "application/epub+zip");
@@ -435,8 +463,8 @@ var meta = zip.folder("META-INF");
 meta.file("container.xml", containerXML);
 var item = zip.folder("item");
 item.file("standard.opf", standardOPFS);
-item.file("nav.xhtml", navigation);
-item.file("toc.ncx", ncx);
+item.file("nav.xhtml", navigationS);
+item.file("toc.ncx", ncxS);
 var img = zip.folder("item/image");
 var style = zip.folder("item/style");
 style.file("fixed-layout-jp.css",layout)
