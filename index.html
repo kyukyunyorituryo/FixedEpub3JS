@@ -31,13 +31,21 @@
   </head>
   <body >
       <div id="bg"class="container bg-info">
-      <!--端末選択を削除
+
 
       <h2>漫画のEPUB３を作成する</h2>
-      <h3>端末の指定</h3>
-      <label class="checkbox-inline"><input type="radio" name="radio" id="radio1" value="radio1" checked="">キンドル</label>
-<label class="checkbox-inline"><input type="radio" name="radio" id="radio2" value="radio2">koboなど</label>
--->	
+      <!--とりあえず隠しておく
+      <h3>本の形式</h3>
+      	<div class="form-group ">
+      <label class="label label-primary">ページのめくる方向</label>
+      <label class="checkbox-inline"><input type="radio" name="radio" id="radio1" value="radio1" checked="">綴じ方向（右から左）</label>
+<label class="checkbox-inline"><input type="radio" name="radio" id="radio2" value="radio2">綴じ方向（左から右）</label>
+     
+      <label class="label label-primary">拡大したときの移動方向</label>
+      <label class="checkbox-inline"><input type="radio" name="radio2" id="radio3" value="radio3" checked="">漫画通常</label>
+<label class="checkbox-inline"><input type="radio" name="radio2" id="radio4" value="radio4">四コマ</label>
+</div>
+ -->
  <h3>入力欄</h3>
  	<div class="form-group ">
           <label class="label label-primary">表題</label>
@@ -110,6 +118,22 @@
  
 <button id="demo" class="btn btn-primary">保存</button>
 <span id="status"></span>
-
+    <!-- モーダルの設定です -->
+    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">プレビュー</h4>
+          </div>
+          <div class="modal-body">
+            <img src="" id="imagepreview" class="img-responsive" >
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- /modal -->
 </div>  </body>
 </html>
