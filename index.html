@@ -34,18 +34,21 @@
 
 
       <h2>漫画のEPUB３を作成する</h2>
-      <!--とりあえず隠しておく
+      <!--とりあえず隠しておく -->
       <h3>本の形式</h3>
       	<div class="form-group ">
+<p class="control-label"><b>本の綴じ方向</b></p>
       <label class="label label-primary">ページのめくる方向</label>
-      <label class="checkbox-inline"><input type="radio" name="radio" id="radio1" value="radio1" checked="">綴じ方向（右から左）</label>
-<label class="checkbox-inline"><input type="radio" name="radio" id="radio2" value="radio2">綴じ方向（左から右）</label>
-     
+      <label class="checkbox-inline"><input type="radio" name="radio" id="binding-rtl" value="radio1" checked="">右から左</label>
+<label class="checkbox-inline"><input type="radio" name="radio" id="binding-ltr" value="radio2">左から右</label>
+     </div>
+     <div class="form-group ">
+     <p class="control-label"><b>パネルビュー</b></p>
       <label class="label label-primary">拡大したときの移動方向</label>
-      <label class="checkbox-inline"><input type="radio" name="radio2" id="radio3" value="radio3" checked="">漫画通常</label>
-<label class="checkbox-inline"><input type="radio" name="radio2" id="radio4" value="radio4">四コマ</label>
+      <label class="checkbox-inline"><input type="radio" name="radio2" id="panel-h" value="radio3" checked="">漫画（通常）</label>
+<label class="checkbox-inline"><input type="radio" name="radio2" id="panel-v" value="radio4">四コマ</label>
 </div>
- -->
+
  <h3>入力欄</h3>
  	<div class="form-group ">
           <label class="label label-primary">表題</label>
@@ -53,7 +56,7 @@
           
           <label class="label label-primary">著者１</label>
           <input   type="text" class="form-control" id="author1" placeholder="著者名１">
-          <label class="label label-primary">著者２</label>
+          <label class="label label-primary">著者２(任意)</label>
          
           <input   type="text" class="form-control" id="author2" placeholder="著者名２"> 
           <label class="label label-primary">表紙画像</label>

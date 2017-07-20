@@ -182,6 +182,27 @@ function rewriteOPF(){
 
 //OPFファイルの書換
 var standardOPFxml = (new DOMParser()).parseFromString(standardOPF, 'text/xml');
+//綴じ方向
+if (document.getElementById("binding-ltr").checked){
+standardOPFxml.querySelector("spine").setAttribute("page-progression-direction","ltr");}
+//パネルビュー
+var panelview = standardOPFxml.querySelector("meta[name=primary-writing-mode]");
+var binding = document.getElementById("binding-ltr").checked
+var panel = document.getElementById("panel-v").checked
+
+//右綴じ漫画horizontal-rl binding=false, panel=false
+if(!binding && !panel){
+panelview.setAttribute("content","horizontal-rl")};
+//左綴じ漫画horizontal-lr binding=true, panel=false
+if(binding && !panel){
+panelview.setAttribute("content","horizontal-lr")};
+//右綴じ四コマvertical-rl binding=false panel=true
+if(!binding && panel){
+panelview.setAttribute("content","vertical-rl")};
+//左綴じ四コマvertical-lr binding=true, panel=true
+if(binding && panel){
+panelview.setAttribute("content","vertical-lr")};
+
 //タイトル
 standardOPFxml.getElementById('title').textContent=$("#title").val();
 var sttitle=standardOPFxml.querySelectorAll("meta[refines='#title']");
@@ -312,8 +333,15 @@ var spele = sreference.cloneNode(true);
 //var spele = standardOPFxml.createElement("itemref");
 	spele.setAttribute("linear", "yes");
 	spele.setAttribute("idref", imgFO[j].xhid);
+//右綴じの場合
+if (document.getElementById("binding-ltr").checked){
+	if(j% 2 == 0){spele.setAttribute("properties", "page-spread-left")};
+	if(j% 2 == 1){spele.setAttribute("properties", "page-spread-right")};}
+
+//左綴じの場合
+else{
 	if(j% 2 == 0){spele.setAttribute("properties", "page-spread-right")};
-	if(j% 2 == 1){spele.setAttribute("properties", "page-spread-left")};
+	if(j% 2 == 1){spele.setAttribute("properties", "page-spread-left")};}
 	 spinedf.appendChild(spele);
 }
 
