@@ -32,3 +32,4 @@ https://kyukyunyorituryo.github.io/FixedEpub3JS/
 * bootstrap http://getbootstrap.com/
 * jquery https://jquery.com/
 * vkBeautify https://github.com/vkiryukhin/vkBeautify
+* BiB/i http://bibi.epub.link/
