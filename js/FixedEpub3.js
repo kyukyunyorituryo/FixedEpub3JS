@@ -141,7 +141,12 @@ for (j = 0; j < imgFO.length; j++){
 $("*[name=selectNav]").append("<option>"+ imgFO[j].file_name +"</option>");
 }
 };
-
+//selectの削減
+function removeselect(){
+if ($("*[name=formNav]").length>1){
+$("*[name=formNav]:last").remove()
+}
+};
 //document.addEventListener("DOMContentLoaded", function(){
 //document.getElementById('InputSelect2').addEventListener('click', addselect, false);
 //});
