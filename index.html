@@ -34,7 +34,7 @@
 
 </script>
     <!-- jQuery読み込み -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- BootstrapのJS読み込み -->
     <script src="js/bootstrap.min.js"></script>
     <!-- 追加した部分 -->
@@ -95,8 +95,44 @@
           <label class="label label-primary">著者１</label>
           <input   type="text" class="form-control" id="author1" placeholder="著者名１">
           <label class="label label-primary">著者２(任意)</label>
-         
-          <input   type="text" class="form-control" id="author2" placeholder="著者名２(任意)"> 
+          <input   type="text" class="form-control" id="author2" placeholder="著者名２(任意)">
+           <!-- 多言語対応-->
+           <label class="label label-primary">言語選択</label>
+           <select class="form-control" id="LangSelect">
+           <option value="zh">中国語</option>
+           <option value="en">英語</option>
+
+           <option value="es">スペイン語</option>
+           <option value="ar">アラビア語</option>
+
+           <option>ポルトガル語</option>
+           <option value="ru">ロシア語</option>
+           <option value="de">ドイツ語</option>
+           <option value="fr">フランス語</option>
+           <option value="it">イタリア語</option>
+           <option value="nl">オランダ語</option>
+           <option value="ca">カタルーニャ</option>
+           <option value="hr">クロアチア語</option>
+           <option value="cs">チェコ語</option>
+           <option value="da">デンマーク語</option>
+           <option value="fi">フィンランド語</option>
+           <option value="el">ギリシャ語</option>
+           <option value="he">ヘブライ語</option>
+           <option value="hu">ハンガリー語</option>
+           <option value="id">インドネシア語</option>
+           <option value="ko">韓国・朝鮮語</option>
+           <option value="ms">マレー語</option>
+           <option value="no">ノルウェー語</option>
+           <option value="pl">ポーランド語</option>
+           <option value="ro">ルーマニア語</option>
+           <option value="sk">スロバキア語</option>
+           <option value="th">タイ語</option>
+           <option value="tr">トルコ語</option>
+           <option value="uk">ウクライナ語</option>
+           <option value="vi">ベトナム語</option>
+			<option selected value="ja">日本語</option>
+           </select>
+            <!-- 多言語対応-->
           <label class="label label-primary">表紙画像</label>
           <input type="file" id="coverfile" name="coverfile" accept="image/png,image/jpeg">
           <output id="coverthumb"></output>
@@ -118,7 +154,7 @@
 <output id="list"></output>
     <label class="label label-primary">画像の整列</label>
 
-     <div ><button type=button onclick="mySort()">名前順に整列</button></div>
+     <div ><button type=button  id="sort">名前順に整列</button></div>
 
 </div>
 
@@ -153,8 +189,8 @@
 </form>
 </div>
 <!--目次の追加や削除-->
-<button type="submit" class="btn btn-default" onclick="addmenu()">追加</button>
- <button type="submit" class="btn btn-default" onclick="removeselect()">削除</button>
+<button type="submit" class="btn btn-default" id="addmenu" >追加</button>
+ <button type="submit" class="btn btn-default" id="removeselect" >削除</button>
 
     <h3>ファイルの出力</h3>
  
