@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--OGP -->
+    <meta property="og:title" content="漫画のEPUB作成サイト" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://kyukyunyorituryo.github.io/FixedEpub3JS/" />
+<meta property="og:image" content="https://kyukyunyorituryo.github.io/FixedEpub3JS/twittercard.jpg" />
+<meta property="og:site_name" content="FixedLayout Epub3.js" />
+<meta property="og:description" content="kobo、bookwalker、Kindle、iBooks向けの漫画のEPUB作成サイト" />
+    <!--Twitterカード -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@99nyorituryo">
+<meta name="twitter:creator" content="@99nyorituryo">
+<meta name="twitter:title" content="漫画のEPUB作成サイト">
+<meta name="twitter:description" content="kobo、bookwalker、Kindle、iBooks向けの漫画のEPUB作成サイト">
+<meta name="twitter:image:src" content="https://kyukyunyorituryo.github.io/FixedEpub3JS/twittercard.jpg">
+
+    <title>FixedLayout Epub3.js</title>
+    <!-- BootstrapのCSS読み込み -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Analytics -->
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-93342586-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+    <!-- jQuery読み込み -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- BootstrapのJS読み込み -->
+    <script src="../js/bootstrap.min.js"></script>
+    <!-- 追加した部分 -->
+       <script type="text/javascript" src="../js/jszip.min.js"></script>
+       <script type="text/javascript" src="../js/FileSaver.js"></script>
+       <script type="text/javascript" src="../js/uuid.js"></script>
+       <script type="text/javascript" src="../js/FixedEpub3.js"></script>
+       <script type="text/javascript" src="../js/vkbeautify.js"></script>
+  </head>
+  <body >
+      <!-- ナビゲーション -->
+  <nav class="navbar navbar-default">
+	<div class="container-fluid ">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="https://kyukyunyorituryo.github.io/">Top Page</a>
+		</div>
+		
+		<div class="collapse navbar-collapse" id="navbarEexample">
+			<ul class="nav navbar-nav">
+				<li ><a href="./about.html">How to use</a></li>
+				<li><a href="http://99nyorituryo.hatenablog.com/">Author's blog</a></li>
+				<li ><a href="http://99nyorituryo.hatenablog.com/archive/category/Fixed%20Layout%20EPUB3">Related articles</a></li>
+				<li><a href="https://github.com/kyukyunyorituryo/FixedEpub3JS">GitHub</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class=" col-sm-2"></div>
+      <div id="bg"class="container bg-info col-sm-7">
+
+
+      <h2>Make cartoon EPUB 3</h2>
+      <h3>Book format</h3>
+      	<div class="form-group ">
+<p class="control-label"><b>Binding direction of book</b></p>
+      <label class="label label-primary">Page turn direction </label>
+      <label class="checkbox-inline"><input type="radio" name="radio" id="binding-rtl" value="radio1" >Right-to-left </label>
+<label class="checkbox-inline"><input type="radio" name="radio" id="binding-ltr" value="radio2" checked="">Left-to-right</label>
+     </div>
+     <div class="form-group ">
+     <p class="control-label"><b>Kindle panel view</b></p>
+      <label class="label label-primary">Panel view mode</label>
+      <label class="checkbox-inline"><input type="radio" name="radio2" id="panel-h" value="radio3" checked="">Manga (normal) </label>
+<label class="checkbox-inline"><input type="radio" name="radio2" id="panel-v" value="radio4">Four-frame comic</label>
+</div>
+
+ <h3>Enter book information</h3>
+ 	<div class="form-group ">
+          <label class="label label-primary">Title</label>
+          <input  type="text" class="form-control " id="title"placeholder="Title name">
+          
+          <label class="label label-primary">Author１</label>
+          <input   type="text" class="form-control" id="author1" placeholder="Author name">
+          <label class="label label-primary">Author２(option)</label>
+          <input   type="text" class="form-control" id="author2" placeholder="Author name２(option)">
+           <!-- 多言語対応-->
+           <label class="label label-primary">Language of your Book</label>
+           <select class="form-control" id="LangSelect">
+           <option value="zh">Chinese</option>
+           <option selected value="en">English</option>
+
+           <option value="es">Spanish</option>
+           <option value="ar">Arabic</option>
+
+           <option value="pt">Portuguese</option>
+           <option value="ru">Russian</option>
+           <option value="de">German</option>
+           <option value="fr">French</option>
+           <option value="it">Italian</option>
+           <option value="nl">Dutch</option>
+           <option value="ca">Catalunya</option>
+           <option value="hr">Croatian</option>
+           <option value="cs">Czech</option>
+           <option value="da">Danish</option>
+           <option value="fi">Finnish</option>
+           <option value="el">Greek</option>
+           <option value="he">Hebrew</option>
+           <option value="hu">Hungarian</option>
+           <option value="id">Indonesian</option>
+           <option value="ko">Korean</option>
+           <option value="ms">Malay</option>
+           <option value="no">Norwegian</option>
+           <option value="pl">Polish</option>
+           <option value="ro">Romanian</option>
+           <option value="sk">Slovak</option>
+           <option value="th">Thai</option>
+           <option value="tr">Turkish</option>
+           <option value="uk">Ukrainian</option>
+           <option value="vi">Vietnamese</option>
+			<option  value="ja">Japanese</option>
+           </select>
+            <!-- 多言語対応-->
+          <label class="label label-primary">Cover image</label>
+          <input type="file" id="coverfile" name="coverfile" accept="image/png,image/jpeg">
+          <output id="coverthumb"></output>
+          <label class="label label-primary">Image width</label>
+          <input   type="number" class="form-control" id="imgwidth" min="1" value="800"placeholder="800">
+          <label class="label label-primary">Image height</label>
+          <input   type="number" class="form-control" id="imgheight" min="1" value="1200"placeholder="1200">
+</div>
+<style>
+  .thumb {
+    height: 75px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+  }
+</style>
+  <div >
+<label class="label label-primary">Load book Pages</label>
+<input type="file" id="files" name="files[]" multiple="multiple" accept="image/png,image/jpeg">
+<output id="list"></output>
+    <label class="label label-primary">Sort pages</label>
+
+     <div ><button type=button  id="sort">Sort by name</button></div>
+
+</div>
+
+    <h3>Edit table of contents</h3>
+    <div id="menu-group">
+    <label class="label label-primary">Select table of contents</label>
+<form class="form-inline">
+	<div class="form-group">
+		<label class="sr-only" for="InputSelect">Select</label>
+		<select class="form-control" id="InputSelect">
+			<option>Cover</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label class="sr-only" >Rewrite TOC</label>
+		<input type="text" class="form-control" id="covertext" value="Cover Page" placeholder="TOC name">
+	</div>
+	</form>
+
+<form class="form-inline" name="formNav">
+
+	<div class="form-group">
+		<label class="sr-only" for="InputSelect">Select</label>
+		<select class="form-control" id="InputSelect2" name= "selectNav">
+			<option>Select Page</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label class="sr-only" >Rewrite TOC</label>
+		<input type="text" class="form-control" id="navtext1" name= "editNav"value="TOC name" placeholder="目次タイトル">
+	</div>
+</form>
+</div>
+<!--目次の追加や削除-->
+<button type="submit" class="btn btn-default" id="addmenu" >Add</button>
+ <button type="submit" class="btn btn-default" id="removeselect" >Remove</button>
+
+    <h3>File Output</h3>
+ 
+<button id="demo" class="btn btn-primary">Generate</button>
+    <h3>EPUB viewer</h3>
+    <label class="label label-primary" >Click and drag and drop to check EPUB </label></br>
+<a class="btn btn-info" href="../bib/i/index.html" target="_blank">EPUB viewerBiB/i（ビビ）</a>
+<span id="status"></span>
+    <!-- モーダルの設定です -->
+    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">プレビュー</h4>
+          </div>
+          <div class="modal-body">
+            <img src="" id="imagepreview" class="img-responsive" >
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- /modal -->
+</div>
+
+  </body>
+</html>
