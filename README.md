@@ -1,10 +1,11 @@
 # FixedEpub3JS
 固定レイアウトのEPUB３を作成するJavaScript
 
-EPUBのベースに使っているのが、電書協とデジタルコミック協議会。デジタルコミック協議会 EPUB3 固定レイアウト 仕様に基づいて作っているので色んな所に入稿できるEPUBになる予定。
+EPUBは電書協とデジタルコミック協議会をベースにしている。デジタルコミック協議会 EPUB3 固定レイアウト 仕様に基づいて作っているので次の所に入稿できる。
+kobo、Kindle、ibooks、BOOK WALKER、その他。
 http://www.digital-comic.jp/press_release_DCA_EPUB3.pdf
 
-## 動作デモページ
+## 動作ページ
 https://kyukyunyorituryo.github.io/FixedEpub3JS/
 
 ## 使い方
@@ -34,8 +35,18 @@ https://kyukyunyorituryo.github.io/FixedEpub3JS/
 * vkBeautify https://github.com/vkiryukhin/vkBeautify
 * BiB/i http://bibi.epub.link/
 
-英語
-create  Fixed Layout EPUB3 with javascript on browser
- Action demo page
+# English
+Fixed Layout EPUB3 generator with javascript on browser.
+
+## How to use
+* "Title, Author 1, Author 2" Enter the title and author name. Reading kana and publisher name are omitted. It may make a detailed setting mode.
+
+* "Cover image selection" The cover image will be selected from the local file.
+
+* "Image File Resolution" Image file resolution is manually entered.
+
+* "Select text file" Select multiple images at once. In the display, the order is indeterminate, but when it is output, it is sorted by name. From now on I would like to sort using natural sorting.
+
+* "Save" When you click Save, a screen similar to the one for downloading appears. Actually it does not download from the net but generates EPUB in the browser.
+###  demo page
  https://kyukyunyorituryo.github.io/FixedEpub3JS/en/
- 
