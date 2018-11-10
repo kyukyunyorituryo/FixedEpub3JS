@@ -9,6 +9,36 @@ var pages=[];
 //UUID宣言
 //uuid ver.4
 var objV4 = UUID.genV4();
+
+//クッキーの読み込み
+document.addEventListener("DOMContentLoaded", function(){
+if (localStorage["datalist"]) {
+//localstrageから読み出す
+datalist=JSON.parse(localStorage.getItem("datalist"))
+
+//状態の書き換え
+binding=document.getElementById(datalist[0])
+binding.checked = true
+panel=document.getElementById(datalist[1])
+panel.checked = true
+document.getElementById('title').value=datalist[2]
+document.getElementById('author1').value=datalist[3]
+document.getElementById('author2').value=datalist[4]
+}
+});
+//状態の取得
+var cookie = function (){
+bindingid=document.querySelector('input[name="radio"]:checked').id
+panelid=document.querySelector('input[name="radio2"]:checked').id
+title = document.getElementById('title').value
+author1 = document.getElementById('author1').value
+author2 = document.getElementById('author2').value
+var datalist =[bindingid,panelid,title,author1,author2]
+//localstrageに保存
+localStorage.setItem("datalist", JSON.stringify(datalist))
+}
+
+
 //イメージモーダル
 function pop(self) {
           $('#imagepreview').attr('src', $(self).attr('src'));
@@ -510,6 +540,7 @@ standardOPFS=rewriteOPF();
 navigationS = rewriteNAV();
 ncxS=rewriteNCX();
 rewrite();
+cookie();
 var zip = new JSZip();
 zip.file("mimetype", "application/epub+zip");
 var meta = zip.folder("META-INF");
