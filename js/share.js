@@ -18,7 +18,7 @@ function setSnsShare(shareUrl, description) {
 
 
 function setTwitterLink(shareSelector, shareUrl, description) {
-    $(shareSelector).attr("href", "https://twitter.com/share?shareUrl=" + shareUrl + "&text=" + encodeURIComponent(description));
+    $(shareSelector).attr("href", "https://twitter.com/intent/tweet?url=" + shareUrl + "&text=" + encodeURIComponent(description));
     setShareEvent(shareSelector, 'Twitter', shareUrl);
 }
 
