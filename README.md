@@ -35,6 +35,7 @@ https://kyukyunyorituryo.github.io/FixedEpub3JS/
 * vkBeautify https://github.com/vkiryukhin/vkBeautify
 * BiB/i http://bibi.epub.link/
 * ejs https://github.com/mde/ejs
+* natsort https://github.com/bubkoo/natsort
 # English
 Fixed Layout EPUB3 generator with javascript on browser.
 
