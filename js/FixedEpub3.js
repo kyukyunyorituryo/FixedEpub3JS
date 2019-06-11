@@ -144,24 +144,18 @@ function mySort() {
 var list = document.getElementById('list');
 var Nlist=list.getElementsByTagName('span');
 var myArray = Array.prototype.slice.call(Nlist);
-   function compareText (a,b) {
-        if (a.firstChild.title > b.firstChild.title)
-            return 1;
-        else if (a.firstChild.title < b.firstChild.title)
-            return -1;
-        return 0;
-        }
-    myArray.sort(compareText);
+var sorter = natsort();
+    myArray.sort(function(a, b) {
+  return sorter(a.firstChild.title, b.firstChild.title);
+});
        for (var i=0; i<myArray.length; i++) {
         list.appendChild(list.removeChild(myArray[i]))
     }
 
 //画像ファイル名で整列
 //imgFO = [{file_id:"",file_name:'cover.jpg',data:'',type:'image/jpeg'}];
- imgFO.sort(function(a,b){
-    if(a.file_name<b.file_name) return -1;
-    if(a.file_name > b.file_name) return 1;
-    return 0;
+ imgFO.sort(function(a, b) {
+  return sorter(a.file_name, b.file_name);
 });
 addselect();
 }
