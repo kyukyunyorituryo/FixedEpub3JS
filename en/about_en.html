@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--OGP -->
+    <meta property="og:title" content="漫画のEPUB作成サイト" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://kyukyunyorituryo.github.io/FixedEpub3JS/" />
+<meta property="og:image" content="https://kyukyunyorituryo.github.io/FixedEpub3JS/twittercard.jpg" />
+<meta property="og:site_name" content="FixedLayout Epub3.js" />
+<meta property="og:description" content="kobo、bookwalker、Kindle、iBooks向けの漫画のEPUB作成サイト" />
+    <!--Twitterカード -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@99nyorituryo">
+<meta name="twitter:creator" content="@99nyorituryo">
+<meta name="twitter:title" content="漫画のEPUB作成サイト">
+<meta name="twitter:description" content="kobo、bookwalker、Kindle、iBooks向けの漫画のEPUB作成サイト">
+<meta name="twitter:image:src" content="https://kyukyunyorituryo.github.io/FixedEpub3JS/twittercard.jpg">
+
+    <title>Instruction Manual</title>
+    <!-- BootstrapのCSS読み込み -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Analytics -->
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-93342586-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<style>
+.contents h3 {
+    margin-top: 0;
+    font-size: 18px;
+    padding: 10px 15px;
+    background: #228b22;
+    color: #fff;
+    border-radius: 5px;
+}
+</style>
+</head>
+
+<body class="top">
+
+<!-- header -->
+<header class="header">
+
+ <nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="https://kyukyunyorituryo.github.io/">Top Page</a>
+		</div>
+		
+		<div class="collapse navbar-collapse" id="navbarEexample">
+			<ul class="nav navbar-nav">
+				<li ><a href="./index.html">Fixed Layout Epub3.js</a></li>
+				<li><a href="http://99nyorituryo.hatenablog.com/">Autor blog(Japanese)</a></li>
+				<li ><a href="http://99nyorituryo.hatenablog.com/archive/category/Fixed%20Layout%20EPUB3">Related articles</a></li>
+				<li><a href="https://github.com/kyukyunyorituryo/FixedEpub3JS">GitHub</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+</header><!-- header -->
+
+<!-- Cathch -->
+<div class="topCatch">
+	<div class="container">
+		<div class="row">
+
+			<div class="col-sm-7 catchText">
+				<h2>Using FixedEpub3JS</h2>
+				<p>You can easily make EPUB cartoons.<br>
+				instruction for newcomers to electronic publishing</p>
+			</div>
+		</div><!-- row -->
+	</div><!-- container -->
+</div><!-- topCatch -->
+
+<!-- main -->
+<div class="main">
+	<div class="container">
+		<div class="row">
+
+			<div class="contents col-sm-8">
+
+				<h3>easy EPUB creation</h3>
+				<p>A site where you can easily create an EPUB with a fixed layout that mainly features images such as comics and photo books.<br>
+				The limit of file size depends on the PC and browser, and I try up to 200 MB. The number of image files is 999 or less, and the browser recommends chrome. It supports Safari browsers such as Mac and iPad OS. Chrome, edge, and firefox for Windows and Android. However, IE 11 is not supported.</p>
+
+				<h3>How to use</h3>
+				<p>Both JPG and PNG image formats are available. The image size assumes that all images, including the cover page, are the same size.<br>
+				Simply apply a style to apply it to your design.</p>
+				<ul>
+				<li>Two-page spread should be split.</li>
+				<li>If you want to adjust the position of the facing pages, you can add white pages.</li>
+				</ul>
+				<p>Please check the spread on the EPUB viewer. In case of right binding, odd pages become right and even pages become left.</p>
+
+				<h3>book binding direction</h3>
+				<p>The binding direction of a book is left binding in ordinary manga.<br>
+				Tap the right edge of the e-book reader to open the next page. Or swipe from right to left.<br>
+				When the binding direction is the facing direction, the pages are aligned from the right side to the left side in the right-binding.<br>
+				In left-handed binding, pages line up from the left side to the right side of the eye.</p>
+				<img border="0" src=".././images/ページ.png" width="220" height="160" alt="綴じ方向">
+				<h3>Panel View</h3>
+				<p>The image is magnified when you double-tap the screen on the Kindle device. Specify the direction in which to move the enlarged view.<br>
+				In the case of a normal right-binding comic book, it moves to the upper right, upper left, lower right, and lower left.<br>
+				For four frames, move to upper right, lower right, upper left, and lower left. In the case of left-handed binding, movement starts from the upper left.<br>
+				File size limits are PC and browser dependent. Each site has a limit on file size.</p>
+				<img border="0" src=".././images/パネルビュー1.png" width="120" height="160" alt="四コマ">
+				<img border="0" src=".././images/パネルビュー2.png" width="120" height="160" alt="通常">
+				<h3>Entering Book Information</h3>
+				<ul>
+				<li>Title Name</li>
+				<li>Author 1</li>
+				<li>Author 2</li>
+				</ul>
+				<p>You can enter two authors' names, but there is no problem even if you do not enter author's name 2.</p>
+				
+				<h3>Cover image</h3>
+				<p>When you click the file selection in the cover page image, the window to select the image opens.<br>
+				File formats are limited to JPG and PNG. When the cover image is selected, the width and height of the image below the selected cover image are automatically set.<br>
+				Although you can manually change the size, it is not recommended.</p>
+				
+				<h3>Reading Body Files</h3>
+				<p>Load multiple files of images of book contents.<br>
+				Due to problems with the HTML5 specification, the order in which files are read is random.<br>
+				Click "Sort by name" to sort them by file name.<br>
+				A small image is displayed when the image file is loaded. Click on the small image to enlarge it.<br>
+				In the file name order, natural sorting is used.</p>
+				<p>On Android and iPadOS devices, you can only add one image file at a time, not all at once. You can't output files on iOS devices. Both are operating system issues and work with PCs. Chrome is the recommended browser.</p>
+				<h3>Edit Table of Contents</h3>
+<p>The EPUB table of contents is a function to jump to the page by tapping. To use it, the cover page, the table of contents page, the introduction of the characters, the first and second stories, and the postscript are included in the table of contents.</p>
+<p>The name of the cover page that appears on the right side of Cover in the table of contents editing screen. You can change the name displayed.</p>
+<p>When the image file of the text is read, the selection of the text becomes the image file name. Select an image file and determine the contents of the table of contents to attach to the image.</p>
+<p>Click Add to expand the table of contents.</p>
+<div id="menu-group" style="box-sizing: border-box; color: #333333; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;"><form class="form-inline" style="box-sizing: border-box;">
+<div class="form-group" style="box-sizing: border-box; margin-bottom: 0px; display: inline-block; vertical-align: middle;"><label class="sr-only" style="box-sizing: border-box; display: inline-block; max-width: 100%; margin: -1px; font-weight: bold; position: absolute; width: 1px; height: 1px; padding: 0px; overflow: hidden; clip: rect(0px 0px 0px 0px); border: 0px;" for="InputSelect">選択</label><select id="InputSelect" class="form-control" style="box-sizing: border-box; margin: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 14px; line-height: 1.42857; font-family: inherit; color: #555555; text-transform: none; display: inline-block; width: auto; height: 34px; padding: 6px 12px; background-color: #ffffff; background-image: none; border: 1px solid #cccccc; border-radius: 4px; box-shadow: rgba(0, 0, 0, 0.075) 0px 1px 1px inset; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; vertical-align: middle;"> 
+<option style="box-sizing: border-box;">Cover</option>
+ </select></div>
+ 
+<div class="form-group" style="box-sizing: border-box; margin-bottom: 0px; display: inline-block; vertical-align: middle;"><label class="sr-only" style="box-sizing: border-box; display: inline-block; max-width: 100%; margin: -1px; font-weight: bold; position: absolute; width: 1px; height: 1px; padding: 0px; overflow: hidden; clip: rect(0px 0px 0px 0px); border: 0px;">目次の書換</label><input id="covertext" class="form-control" style="box-sizing: border-box; margin: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 14px; line-height: 1.42857; font-family: inherit; color: #555555; display: inline-block; width: auto; height: 34px; padding: 6px 12px; background-color: #ffffff; background-image: none; border: 1px solid #cccccc; border-radius: 4px; box-shadow: rgba(0, 0, 0, 0.075) 0px 1px 1px inset; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; vertical-align: middle;" type="text" value="Cover Page" placeholder="目次タイトル" /></div>
+</form><form class="form-inline" style="box-sizing: border-box;" name="formNav">
+<div class="form-group" style="box-sizing: border-box; margin-bottom: 0px; display: inline-block; vertical-align: middle;"><label class="sr-only" style="box-sizing: border-box; display: inline-block; max-width: 100%; margin: -1px; font-weight: bold; position: absolute; width: 1px; height: 1px; padding: 0px; overflow: hidden; clip: rect(0px 0px 0px 0px); border: 0px;" for="InputSelect">選択</label><select id="InputSelect2" class="form-control" style="box-sizing: border-box; margin: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 14px; line-height: 1.42857; font-family: inherit; color: #555555; text-transform: none; display: inline-block; width: auto; height: 34px; padding: 6px 12px; background-color: #ffffff; background-image: none; border: 1px solid #cccccc; border-radius: 4px; box-shadow: rgba(0, 0, 0, 0.075) 0px 1px 1px inset; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; vertical-align: middle;" name="selectNav"> 
+<option style="box-sizing: border-box;">Select Page</option>
+ </select></div>
+ 
+<div class="form-group" style="box-sizing: border-box; margin-bottom: 0px; display: inline-block; vertical-align: middle;"><label class="sr-only" style="box-sizing: border-box; display: inline-block; max-width: 100%; margin: -1px; font-weight: bold; position: absolute; width: 1px; height: 1px; padding: 0px; overflow: hidden; clip: rect(0px 0px 0px 0px); border: 0px;">目次の書換</label><input id="navtext1" class="form-control" style="box-sizing: border-box; margin: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 14px; line-height: 1.42857; font-family: inherit; color: #555555; display: inline-block; width: auto; height: 34px; padding: 6px 12px; background-color: #ffffff; background-image: none; border: 1px solid #66afe9; border-radius: 4px; box-shadow: rgba(0, 0, 0, 0.075) 0px 1px 1px inset, rgba(102, 175, 233, 0.6) 0px 0px 8px; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; outline: 0px; vertical-align: middle;" name="editNav" type="text" value="TOC name" placeholder="目次タイトル" /></div>
+</form></div>
+<p><button class="btn btn-default" style="box-sizing: border-box; margin: 0px; font-style: inherit; font-variant: inherit; font-weight: 400; font-stretch: inherit; font-size: 14px; line-height: 1.42857; font-family: inherit; color: #333333; overflow: visible; text-transform: none; -webkit-appearance: button; cursor: pointer; display: inline-block; padding: 6px 12px; text-align: center; white-space: nowrap; vertical-align: middle; touch-action: manipulation; user-select: none; background-image: none; border: 1px solid #cccccc; border-radius: 4px; background-color: #ffffff; orphans: 2; widows: 2; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;" type="submit">Add</button></p>
+				
+				<h3> File Output</h3>
+				<p>Click "Generate" to download the EPUB. The site is not server-side, so image files aren't uploaded. The browser generates the file, but the file saving function is based on the browser download.</p>
+				<h3>EPUB viewer</h3>
+<p>BiB/i is installed as the EPUB viewer, but if the viewer supports the fixed layout of EPUB3, there is no problem. There's also a Chrome app called Readium. On the iPad, you can also open it in iBooks. Use the EPUB viewer to check the spreads and table of contents.</p>
+					<ul class="nav nav-pills nav-stacked">
+					<li><a href="https://chrome.google.com/webstore/detail/readium/fepbnnnkkadjhjahcafoaglimekefifl?hl=ja">
+					<i class="fa fa-arrow-circle-right"></i>EPUB viewer「Readium」</a></li>
+					<li><a href="http://bibi.epub.link/">
+					<i class="fa fa-arrow-circle-right"></i>EPUB viewer「Bibi」</a></li>
+					<p>When viewing on a Kindle, drag and drop onto KindlePreviewer to convert to a MOBI file before viewing.</p>
+					
+				</ul>
+				<h3>Terms of Use</h3>
+				<p>Kobo, Book Walker, Kindle, and iBooks were created for personal EPUB submission.<br>
+The site is available on GitHub Pages for free to maintain. They can't decide whether to use shareware or open source and rely on donations.<br>
+I have a list of what I want, so I would appreciate it if you could make a profit.</p>
+				<ul class="nav nav-pills nav-stacked">
+					<li><a href="https://www.amazon.co.jp/gp/registry/wishlist/PP7F9RZJ1B0Y/ref=nav_wishlist_lists_1">
+					<i class="fa fa-arrow-circle-right"></i>wishlist</a></li>
+				</ul>
+				
+				<h3>JS Library</h3>
+				<p>The original goal was to create a javascript library, but the priority was to get it done quickly. That's why it's named like a javascript library. A javascript library is a collection of specific features.<br>
+At the moment, it's just a site-specific library, so it's not versatile. For example, to make it universal, I think we should object titles, authors, tables of contents, images, and so on, and pass them to the library. The template should also be external and easy to edit. I can't do that at all.<br>
+<br>
+You can then load fixedepub3.js on your site and generate EPUB3 from there.</p>
+
+			</div><!-- contents -->
+
+
+		</div><!-- row -->
+	</div><!-- container -->
+</div><!-- main -->
+
+  </body>
+</html>
