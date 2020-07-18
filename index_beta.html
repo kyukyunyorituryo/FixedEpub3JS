@@ -85,11 +85,18 @@
           <label class="label label-primary">表紙画像</label>
           <input type="file" id="coverfile" name="coverfile" accept="image/png,image/jpeg">
           <output id="coverthumb"></output>
+<div class="nondisplayFrame">
           <label class="label label-primary">画像の横幅</label>
           <input   type="number" class="form-control" id="imgwidth" min="1" value="800"placeholder="800">
           <label class="label label-primary">画像の高さ</label>
           <input   type="number" class="form-control" id="imgheight" min="1" value="1200"placeholder="1200">
 </div>
+</div>
+<style type="text/css">
+.nondisplayFrame {
+  display:none;
+}
+</style>
 <style>
   .thumb {
     height: 75px;
