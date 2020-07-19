@@ -1,13 +1,17 @@
 /**
- * UUID.js: The RFC-compliant UUID generator for JavaScript.
+ * UUID.js - RFC-compliant UUID Generator for JavaScript
  *
- * @fileOverview
+ * @file
  * @author  LiosK
- * @version v3.3.0
- * @license The MIT License: Copyright (c) 2010-2016 LiosK.
+ * @version v4.2.5
+ * @license Apache License 2.0: Copyright (c) 2010-2020 LiosK
  */
 
-/** @constructor */
+/**
+ * @class
+ * @classdesc {@link UUID} object.
+ * @hideconstructor
+ */
 var UUID;
 
 UUID = (function(overwrittenUUID) {
@@ -15,12 +19,9 @@ UUID = (function(overwrittenUUID) {
 
 // Core Component {{{
 
-/** @lends UUID */
-function UUID() {}
-
 /**
- * The simplest function to get an UUID string.
- * @returns {string} A version 4 UUID string.
+ * Generates a version 4 UUID as a hexadecimal string.
+ * @returns {string} Hexadecimal UUID string.
  */
 UUID.generate = function() {
   var rand = UUID._getRandomInt, hex = UUID._hexAligner;
@@ -37,39 +38,85 @@ UUID.generate = function() {
 
 /**
  * Returns an unsigned x-bit random integer.
- * @param {int} x A positive integer ranging from 0 to 53, inclusive.
- * @returns {int} An unsigned x-bit random integer (0 <= f(x) < 2^x).
+ * @private
+ * @param {number} x Unsigned integer ranging from 0 to 53, inclusive.
+ * @returns {number} Unsigned x-bit random integer (0 <= f(x) < 2^x).
  */
 UUID._getRandomInt = function(x) {
-  if (x <   0) return NaN;
-  if (x <= 30) return (0 | Math.random() * (1 <<      x));
-  if (x <= 53) return (0 | Math.random() * (1 <<     30))
-                    + (0 | Math.random() * (1 << x - 30)) * (1 << 30);
-  return NaN;
+  if (x < 0 || x > 53) { return NaN; }
+  var n = 0 | Math.random() * 0x40000000; // 1 << 30
+  return x > 30 ? n + (0 | Math.random() * (1 << x - 30)) * 0x40000000 : n >>> 30 - x;
 };
 
 /**
- * Returns a function that converts an integer to a zero-filled string.
- * @param {int} radix
- * @returns {function(num&#44; length)}
+ * Converts an integer to a zero-filled hexadecimal string.
+ * @private
+ * @param {number} num
+ * @param {number} length
+ * @returns {string}
  */
-UUID._getIntAligner = function(radix) {
-  return function(num, length) {
-    var str = num.toString(radix), i = length - str.length, z = "0";
-    for (; i > 0; i >>>= 1, z += z) { if (i & 1) { str = z + str; } }
-    return str;
-  };
+UUID._hexAligner = function(num, length) {
+  var str = num.toString(16), i = length - str.length, z = "0";
+  for (; i > 0; i >>>= 1, z += z) { if (i & 1) { str = z + str; } }
+  return str;
 };
 
-UUID._hexAligner = UUID._getIntAligner(16);
+/**
+ * Retains the value of 'UUID' global variable assigned before loading UUID.js.
+ * @since 3.2
+ * @type {any}
+ */
+UUID.overwrittenUUID = overwrittenUUID;
+
+// }}}
+
+// Advanced Random Number Generator Component {{{
+
+(function() {
+
+  var mathPRNG = UUID._getRandomInt;
+
+  /**
+   * Enables Math.random()-based pseudorandom number generator instead of cryptographically safer options.
+   * @since v3.5.0
+   * @deprecated This method is provided only to work around performance drawbacks of the safer algorithms.
+   */
+  UUID.useMathRandom = function() {
+    UUID._getRandomInt = mathPRNG;
+  };
+
+  var crypto = null, cryptoPRNG = mathPRNG;
+  if (typeof window !== "undefined" && (crypto = window.crypto || window.msCrypto)) {
+    if (crypto.getRandomValues && typeof Uint32Array !== "undefined") {
+      // Web Cryptography API
+      cryptoPRNG = function(x) {
+        if (x < 0 || x > 53) { return NaN; }
+        var ns = new Uint32Array(x > 32 ? 2 : 1);
+        ns = crypto.getRandomValues(ns) || ns;
+        return x > 32 ? ns[0] + (ns[1] >>> 64 - x) * 0x100000000 : ns[0] >>> 32 - x;
+      };
+    }
+  } else if (typeof require !== "undefined" && (crypto = require("crypto"))) {
+    if (crypto.randomBytes) {
+      // nodejs
+      cryptoPRNG = function(x) {
+        if (x < 0 || x > 53) { return NaN; }
+        var buf = crypto.randomBytes(x > 32 ? 8 : 4), n = buf.readUInt32BE(0);
+        return x > 32 ? n + (buf.readUInt32BE(4) >>> 64 - x) * 0x100000000 : n >>> 32 - x;
+      };
+    }
+  }
+  UUID._getRandomInt = cryptoPRNG;
+
+})();
 
 // }}}
 
 // UUID Object Component {{{
 
 /**
- * Names of each UUID field.
- * @type string[]
+ * Names of UUID internal fields.
+ * @type {string[]}
  * @constant
  * @since 3.0
  */
@@ -77,16 +124,16 @@ UUID.FIELD_NAMES = ["timeLow", "timeMid", "timeHiAndVersion",
                     "clockSeqHiAndReserved", "clockSeqLow", "node"];
 
 /**
- * Sizes of each UUID field.
- * @type int[]
+ * Sizes of UUID internal fields.
+ * @type {number[]}
  * @constant
  * @since 3.0
  */
 UUID.FIELD_SIZES = [32, 16, 16, 8, 8, 48];
 
 /**
- * Generates a version 4 {@link UUID}.
- * @returns {UUID} A version 4 {@link UUID} object.
+ * Creates a version 4 {@link UUID} object.
+ * @returns {UUID} Version 4 {@link UUID} object.
  * @since 3.0
  */
 UUID.genV4 = function() {
@@ -98,8 +145,8 @@ UUID.genV4 = function() {
 };
 
 /**
- * Converts hexadecimal UUID string to an {@link UUID} object.
- * @param {string} strId UUID hexadecimal string representation ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
+ * Converts a hexadecimal UUID string to a {@link UUID} object.
+ * @param {string} strId Hexadecimal UUID string ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
  * @returns {UUID} {@link UUID} object or null.
  * @since 3.0
  */
@@ -119,13 +166,15 @@ UUID.parse = function(strId) {
 };
 
 /**
- * Initializes {@link UUID} object.
- * @param {uint32} [timeLow=0] time_low field (octet 0-3).
- * @param {uint16} [timeMid=0] time_mid field (octet 4-5).
- * @param {uint16} [timeHiAndVersion=0] time_hi_and_version field (octet 6-7).
- * @param {uint8} [clockSeqHiAndReserved=0] clock_seq_hi_and_reserved field (octet 8).
- * @param {uint8} [clockSeqLow=0] clock_seq_low field (octet 9).
- * @param {uint48} [node=0] node field (octet 10-15).
+ * Initializes a {@link UUID} object.
+ * @private
+ * @constructs UUID
+ * @param {number} [timeLow=0] time_low field (octet 0-3, uint32).
+ * @param {number} [timeMid=0] time_mid field (octet 4-5, uint16).
+ * @param {number} [timeHiAndVersion=0] time_hi_and_version field (octet 6-7, uint16).
+ * @param {number} [clockSeqHiAndReserved=0] clock_seq_hi_and_reserved field (octet 8, uint8).
+ * @param {number} [clockSeqLow=0] clock_seq_low field (octet 9, uint8).
+ * @param {number} [node=0] node field (octet 10-15, uint48).
  * @returns {UUID} this.
  */
 UUID.prototype._init = function() {
@@ -133,20 +182,20 @@ UUID.prototype._init = function() {
   var bin = UUID._binAligner, hex = UUID._hexAligner;
 
   /**
-   * List of UUID field values (as integer values).
-   * @type int[]
+   * UUID internal field values as an array of integers.
+   * @type {number[]}
    */
   this.intFields = new Array(6);
 
   /**
-   * List of UUID field values (as binary bit string values).
-   * @type string[]
+   * UUID internal field values as an array of binary strings.
+   * @type {string[]}
    */
   this.bitFields = new Array(6);
 
   /**
-   * List of UUID field values (as hexadecimal string values).
-   * @type string[]
+   * UUID internal field values as an array of hexadecimal strings.
+   * @type {string[]}
    */
   this.hexFields = new Array(6);
 
@@ -154,48 +203,59 @@ UUID.prototype._init = function() {
     var intValue = parseInt(arguments[i] || 0);
     this.intFields[i] = this.intFields[names[i]] = intValue;
     this.bitFields[i] = this.bitFields[names[i]] = bin(intValue, sizes[i]);
-    this.hexFields[i] = this.hexFields[names[i]] = hex(intValue, sizes[i] / 4);
+    this.hexFields[i] = this.hexFields[names[i]] = hex(intValue, sizes[i] >>> 2);
   }
 
   /**
-   * UUID version number defined in RFC 4122.
-   * @type int
+   * UUID version number.
+   * @type {number}
    */
-  this.version = (this.intFields.timeHiAndVersion >> 12) & 0xF;
+  this.version = (this.intFields.timeHiAndVersion >>> 12) & 0xF;
 
   /**
-   * 128-bit binary bit string representation.
-   * @type string
+   * 128-bit binary string representation.
+   * @type {string}
    */
   this.bitString = this.bitFields.join("");
 
   /**
    * Non-delimited hexadecimal string representation ("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx").
-   * @type string
+   * @type {string}
    * @since v3.3.0
    */
   this.hexNoDelim = this.hexFields.join("");
 
   /**
-   * UUID hexadecimal string representation ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
-   * @type string
+   * Hexadecimal string representation ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
+   * @type {string}
    */
   this.hexString = this.hexFields[0] + "-" + this.hexFields[1] + "-" + this.hexFields[2]
                  + "-" + this.hexFields[3] + this.hexFields[4] + "-" + this.hexFields[5];
 
   /**
-   * UUID string representation as a URN ("urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
-   * @type string
+   * URN string representation ("urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
+   * @type {string}
    */
   this.urn = "urn:uuid:" + this.hexString;
 
   return this;
 };
 
-UUID._binAligner = UUID._getIntAligner(2);
+/**
+ * Converts an integer to a zero-filled binary string.
+ * @private
+ * @param {number} num
+ * @param {number} length
+ * @returns {string}
+ */
+UUID._binAligner = function(num, length) {
+  var str = num.toString(2), i = length - str.length, z = "0";
+  for (; i > 0; i >>>= 1, z += z) { if (i & 1) { str = z + str; } }
+  return str;
+};
 
 /**
- * Returns UUID string representation.
+ * Returns the hexadecimal string representation.
  * @returns {string} {@link UUID#hexString}.
  */
 UUID.prototype.toString = function() { return this.hexString; };
@@ -203,7 +263,7 @@ UUID.prototype.toString = function() { return this.hexString; };
 /**
  * Tests if two {@link UUID} objects are equal.
  * @param {UUID} uuid
- * @returns {bool} True if two {@link UUID} objects are equal.
+ * @returns {boolean} True if two {@link UUID} objects are equal.
  */
 UUID.prototype.equals = function(uuid) {
   if (!(uuid instanceof UUID)) { return false; }
@@ -213,16 +273,25 @@ UUID.prototype.equals = function(uuid) {
   return true;
 };
 
+/**
+ * Nil UUID object.
+ * @type {UUID}
+ * @constant
+ * @since v3.4.0
+ */
+UUID.NIL = new UUID()._init(0, 0, 0, 0, 0, 0);
+
 // }}}
 
 // UUID Version 1 Component {{{
 
 /**
- * Generates a version 1 {@link UUID}.
- * @returns {UUID} A version 1 {@link UUID} object.
+ * Creates a version 1 {@link UUID} object.
+ * @returns {UUID} Version 1 {@link UUID} object.
  * @since 3.0
  */
 UUID.genV1 = function() {
+  if (UUID._state == null) { UUID.resetState(); }
   var now = new Date().getTime(), st = UUID._state;
   if (now != st.timestamp) {
     if (now < st.timestamp) { st.sequence++; }
@@ -250,34 +319,39 @@ UUID.genV1 = function() {
 };
 
 /**
- * Re-initializes version 1 UUID state.
+ * Re-initializes the internal state for version 1 UUID creation.
  * @since 3.0
  */
 UUID.resetState = function() {
-  UUID._state = new UUID._state.constructor();
+  UUID._state = new UUIDState();
 };
 
-/**
- * Probability to advance the timestamp fraction: the ratio of tick movements to sequence increments.
- * @type float
- */
-UUID._tsRatio = 1 / 4;
-
-/**
- * Persistent state for UUID version 1.
- * @type UUIDState
- */
-UUID._state = new function UUIDState() {
+function UUIDState() {
   var rand = UUID._getRandomInt;
   this.timestamp = 0;
   this.sequence = rand(14);
   this.node = (rand(8) | 1) * 0x10000000000 + rand(40); // set multicast bit '1'
   this.tick = rand(4);  // timestamp fraction smaller than a millisecond
-};
+}
 
 /**
- * @param {Date|int} time ECMAScript Date Object or milliseconds from 1970-01-01.
- * @returns {object}
+ * Probability to advance the timestamp fraction: the ratio of tick movements to sequence increments.
+ * @private
+ * @type {number}
+ */
+UUID._tsRatio = 1 / 4;
+
+/**
+ * Persistent internal state for version 1 UUID creation.
+ * @private
+ * @type {UUIDState}
+ */
+UUID._state = null;
+
+/**
+ * @private
+ * @param {Date|number} time ECMAScript Date Object or milliseconds from 1970-01-01.
+ * @returns {any}
  */
 UUID._getTimeFieldValues = function(time) {
   var ts = time - Date.UTC(1582, 9, 15);
@@ -288,32 +362,16 @@ UUID._getTimeFieldValues = function(time) {
 
 // }}}
 
-// Misc. Component {{{
+// create local namespace
+function UUID() {}
 
-/**
- * Reinstalls {@link UUID.generate} method to emulate the interface of UUID.js version 2.x.
- * @since 3.1
- * @deprecated Version 2.x. compatible interface is not recommended.
- */
-UUID.makeBackwardCompatible = function() {
-  var f = UUID.generate;
-  UUID.generate = function(o) {
-    return (o && o.version == 1) ? UUID.genV1().hexString : f.call(UUID);
-  };
-  UUID.makeBackwardCompatible = function() {};
-};
-
-/**
- * Preserves the value of 'UUID' global variable set before the load of UUID.js.
- * @since 3.2
- * @type object
- */
-UUID.overwrittenUUID = overwrittenUUID;
-
-// }}}
+// for nodejs
+if (typeof module === "object" && typeof module.exports === "object") {
+  module.exports = UUID;
+}
 
 return UUID;
 
 })(UUID);
 
-// vim: et ts=2 sw=2 fdm=marker fmr&
+// vim: fdm=marker fmr&
