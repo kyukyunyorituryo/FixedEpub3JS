@@ -1,15 +1,16 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>FixedLayout Epub3.js</title>
 
 <meta charset="utf-8">
-    <!-- jqueryのJS読み込み -->
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="  crossorigin="anonymous"></script>
-    <!-- BootstrapのJS読み込み -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!-- BootstrapのCSS読み込み -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Bootstrap4のJS読み込み -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <!-- Bootstrap4のCSS読み込み -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
     <!-- 追加した部分 -->
 <script type="text/javascript" src="js/jszip.min.js"></script>
 <script type="text/javascript" src="js/FileSaver.js"></script>
@@ -19,160 +20,163 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/natsort@latest/index.min.js"></script>
 </head>
 <body>
-<div class=" col-sm-2"></div>
-      <div id="bg"class="container bg-info col-sm-7">
-
-      <h3>本の形式</h3>
-      	<div class="form-group ">
-<p class="control-label"><b>本の綴じ方向</b></p>
-      <label class="label label-primary">ページ方向</label>
-      <label class="checkbox-inline"><input type="radio" name="radio" id="binding-rtl" value="radio1" checked="">右から左</label>
-<label class="checkbox-inline"><input type="radio" name="radio" id="binding-ltr" value="radio2">左から右</label>
-     </div>
-     <div class="form-group ">
-     <p class="control-label"><b>パネルビュー</b></p>
-      <label class="label label-primary">拡大したときの移動方向</label>
-      <label class="checkbox-inline"><input type="radio" name="radio2" id="panel-h" value="radio3" checked="">漫画（通常）</label>
-<label class="checkbox-inline"><input type="radio" name="radio2" id="panel-v" value="radio4">四コマ</label>
-</div>
-
- <h3>本の情報の入力</h3>
- 	<div class="form-group ">
-          <label class="label label-primary">表題</label>
-          <input  type="text" class="form-control " id="title"placeholder="タイトル名">
-          
-          <label class="label label-primary">著者１</label>
-          <input   type="text" class="form-control" id="author1" placeholder="著者名１">
-          <label class="label label-primary">著者２(任意)</label>
-          <input   type="text" class="form-control" id="author2" placeholder="著者名２(任意)">
-           <!-- 多言語対応-->
-           <label class="label label-primary">言語選択</label>
-           <select class="form-control" id="LangSelect">
-           <option value="zh">中国語</option>
-           <option value="en">英語</option>
-
-           <option value="es">スペイン語</option>
-           <option value="ar">アラビア語</option>
-
-           <option value="pt">ポルトガル語</option>
-           <option value="ru">ロシア語</option>
-           <option value="de">ドイツ語</option>
-           <option value="fr">フランス語</option>
-           <option value="it">イタリア語</option>
-           <option value="nl">オランダ語</option>
-           <option value="ca">カタルーニャ</option>
-           <option value="hr">クロアチア語</option>
-           <option value="cs">チェコ語</option>
-           <option value="da">デンマーク語</option>
-           <option value="fi">フィンランド語</option>
-           <option value="el">ギリシャ語</option>
-           <option value="he">ヘブライ語</option>
-           <option value="hu">ハンガリー語</option>
-           <option value="id">インドネシア語</option>
-           <option value="ko">韓国・朝鮮語</option>
-           <option value="ms">マレー語</option>
-           <option value="no">ノルウェー語</option>
-           <option value="pl">ポーランド語</option>
-           <option value="ro">ルーマニア語</option>
-           <option value="sk">スロバキア語</option>
-           <option value="th">タイ語</option>
-           <option value="tr">トルコ語</option>
-           <option value="uk">ウクライナ語</option>
-           <option value="vi">ベトナム語</option>
-			<option selected value="ja">日本語</option>
-           </select>
-            <!-- 多言語対応-->
-          <label class="label label-primary">表紙画像</label>
-          <input type="file" id="coverfile" name="coverfile" accept="image/png,image/jpeg">
-          <output id="coverthumb"></output>
-<div class="nondisplayFrame">
-          <label class="label label-primary">画像の横幅</label>
-          <input   type="number" class="form-control" id="imgwidth" min="1" value="800"placeholder="800">
-          <label class="label label-primary">画像の高さ</label>
-          <input   type="number" class="form-control" id="imgheight" min="1" value="1200"placeholder="1200">
-</div>
-</div>
-<style type="text/css">
-.nondisplayFrame {
-  display:none;
+<style>
+.container {
+    max-width: 960px;
 }
 </style>
-<style>
-  .thumb {
-    height: 75px;
-    border: 1px solid #000;
-    margin: 10px 5px 0 0;
-  }
-</style>
-  <div >
-<label class="label label-primary">本文ファイルの読み込み</label>
-<input type="file" id="files" name="files[]" multiple="multiple" accept="image/png,image/jpeg">
-<output id="list"></output>
-    <label class="label label-primary">画像の整列</label>
-
-     <div ><button type=button  id="sort">名前順に整列</button></div>
-
-</div>
-
-    <h3>目次の編集</h3>
-    <div id="menu-group">
-    <label class="label label-primary">目次の選択</label>
-<form class="form-inline">
-	<div class="form-group">
-		<label class="sr-only" for="InputSelect">選択</label>
-		<select class="form-control" id="InputSelect">
-			<option>Cover</option>
-		</select>
-	</div>
-	<div class="form-group">
-		<label class="sr-only" >目次の書換</label>
-		<input type="text" class="form-control" id="covertext" value="表紙" placeholder="目次タイトル">
-	</div>
-	</form>
-
-<form class="form-inline" name="formNav">
-
-	<div class="form-group">
-		<label class="sr-only" for="InputSelect">選択</label>
-		<select class="form-control" id="InputSelect2" name= "selectNav">
-			<option>本文の選択</option>
-		</select>
-	</div>
-	<div class="form-group">
-		<label class="sr-only" >目次の書換</label>
-		<input type="text" class="form-control" id="navtext1" name= "editNav"value="目次" placeholder="目次タイトル">
-	</div>
-</form>
-</div>
-<!--目次の追加や削除-->
-<button type="submit" class="btn btn-default" id="addmenu" >追加</button>
- <button type="submit" class="btn btn-default" id="removeselect" >削除</button>
-
-    <h3>ファイルの出力</h3>
- 
-<button id="demo" class="btn btn-primary">保存</button>
-    <h3>EPUBビュワー</h3>
-    <label class="label label-primary" >クリックしドラッグアンドドロップでEPUBを確認する</label></br>
-<a class="btn btn-info" href="bib/i/index.html" target="_blank">EPUBビュワーBiB/i（ビビ）</a>
-<span id="status"></span>
-    <!-- モーダルの設定です -->
-    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title" id="myModalLabel">プレビュー</h4>
-          </div>
-          
-          <div class="modal-body">
-            <img src="" id="imagepreview" class="img-responsive" >
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
+    <div class="container bg-light">
+        <h3 class="alert alert-success">本の形式</h3>
+        <div class="form-group ">
+            <p class="control-label"><b>本の綴じ方向</b></p>
+            <label class="badge badge-primary">ページ方向</label>
+            <label class="checkbox-inline"><input type="radio" name="radio" id="binding-rtl" value="radio1" checked="">右から左</label>
+            <label class="checkbox-inline"><input type="radio" name="radio" id="binding-ltr" value="radio2">左から右</label>
         </div>
-      </div>
-    </div><!-- /modal -->
-</div>
+        <div class="form-group ">
+            <p class="control-label"><b>パネルビュー</b></p>
+            <label class="badge badge-primary">拡大したときの移動方向</label>
+            <label class="checkbox-inline"><input type="radio" name="radio2" id="panel-h" value="radio3" checked="">漫画（通常）</label>
+            <label class="checkbox-inline"><input type="radio" name="radio2" id="panel-v" value="radio4">四コマ</label>
+        </div>
+
+        <h3 class="alert alert-success">本の情報の入力</h3>
+        <div class="form-group ">
+            <label class="badge badge-primary">表題</label>
+            <input type="text" class="form-control " id="title" placeholder="タイトル名">
+
+            <label class="badge badge-primary">著者１</label>
+            <input type="text" class="form-control" id="author1" placeholder="著者名１">
+            <label class="badge badge-primary">著者２(任意)</label>
+            <input type="text" class="form-control" id="author2" placeholder="著者名２(任意)">
+            <!-- 多言語対応-->
+            <label class="badge badge-primary">言語選択</label>
+            <select class="form-control" id="LangSelect">
+                <option value="zh">中国語</option>
+                <option value="en">英語</option>
+
+                <option value="es">スペイン語</option>
+                <option value="ar">アラビア語</option>
+
+                <option value="pt">ポルトガル語</option>
+                <option value="ru">ロシア語</option>
+                <option value="de">ドイツ語</option>
+                <option value="fr">フランス語</option>
+                <option value="it">イタリア語</option>
+                <option value="nl">オランダ語</option>
+                <option value="ca">カタルーニャ</option>
+                <option value="hr">クロアチア語</option>
+                <option value="cs">チェコ語</option>
+                <option value="da">デンマーク語</option>
+                <option value="fi">フィンランド語</option>
+                <option value="el">ギリシャ語</option>
+                <option value="he">ヘブライ語</option>
+                <option value="hu">ハンガリー語</option>
+                <option value="id">インドネシア語</option>
+                <option value="ko">韓国・朝鮮語</option>
+                <option value="ms">マレー語</option>
+                <option value="no">ノルウェー語</option>
+                <option value="pl">ポーランド語</option>
+                <option value="ro">ルーマニア語</option>
+                <option value="sk">スロバキア語</option>
+                <option value="th">タイ語</option>
+                <option value="tr">トルコ語</option>
+                <option value="uk">ウクライナ語</option>
+                <option value="vi">ベトナム語</option>
+                <option selected value="ja">日本語</option>
+            </select>
+            <!-- 多言語対応-->
+            <label class="badge badge-primary">表紙画像</label>
+            <input type="file" id="coverfile" name="coverfile" accept="image/png,image/jpeg">
+            <output id="coverthumb"></output>
+            <div class="nondisplayFrame">
+                <label class="badge badge-primary">画像の横幅</label>
+                <input type="number" class="form-control" id="imgwidth" min="1" value="800" placeholder="800">
+                <label class="badge badge-primary">画像の高さ</label>
+                <input type="number" class="form-control" id="imgheight" min="1" value="1200" placeholder="1200">
+            </div>
+        </div>
+        <style type="text/css">
+            .nondisplayFrame {
+                display: none;
+            }
+        </style>
+        <style>
+            .thumb {
+                height: 75px;
+                border: 1px solid #000;
+                margin: 10px 5px 0 0;
+            }
+        </style>
+        <div>
+            <label class="badge badge-primary">本文ファイルの読み込み</label>
+            <input type="file" id="files" name="files[]" multiple="multiple" accept="image/png,image/jpeg">
+            <output id="list"></output>
+            <label class="badge badge-primary">画像の整列</label>
+
+            <div><button type=button id="sort">名前順に整列</button></div>
+
+        </div>
+
+        <h3 class="alert alert-success">目次の編集</h3>
+        <div id="menu-group">
+            <label class="badge badge-primary">目次の選択</label>
+            <form class="form-inline">
+                <div class="form-group">
+                    <label class="sr-only" for="InputSelect">選択</label>
+                    <select class="form-control" id="InputSelect">
+                        <option>Cover</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only">目次の書換</label>
+                    <input type="text" class="form-control" id="covertext" value="表紙" placeholder="目次タイトル">
+                </div>
+            </form>
+
+            <form class="form-inline" name="formNav">
+
+                <div class="form-group">
+                    <label class="sr-only" for="InputSelect">選択</label>
+                    <select class="form-control" id="InputSelect2" name="selectNav">
+                        <option>本文の選択</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only">目次の書換</label>
+                    <input type="text" class="form-control" id="navtext1" name="editNav" value="目次" placeholder="目次タイトル">
+                </div>
+            </form>
+        </div>
+        <!--目次の追加や削除-->
+        <button type="submit" class="btn btn-default" id="addmenu">追加</button>
+        <button type="submit" class="btn btn-default" id="removeselect">削除</button>
+
+        <h3 class="alert alert-success">ファイルの出力</h3>
+
+        <button id="demo" class="btn btn-primary">保存</button>
+        <h3 class="alert alert-success">EPUBビュワー</h3>
+        <label class="badge badge-primary">クリックしドラッグアンドドロップでEPUBを確認する</label><br>
+        <a class="btn btn-info" href="bib/i/index.html" target="_blank">EPUBビュワーBiB/i（ビビ）</a>
+        <span id="status"></span>
+        <!-- モーダルの設定です -->
+        <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">プレビュー</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <img src="" id="imagepreview" class="img-responsive">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /modal -->
+    </div>
 </body>
 </html>
