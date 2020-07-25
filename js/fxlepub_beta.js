@@ -15,8 +15,8 @@ var css_style = '@charset "UTF-8";\n\nhtml,\nbody {\n  margin:    0;\n  padding:
 var data = {
     "language": "ja",
     "title": "タイトル",
-    "author1": "著者名1",
-    "author2": "著者名２",
+    "creator1": "著者名1",
+    "creator2": "著者名２",
     "index": [],
     "page_direction": "rtl",
     "panel_view": "horizontal-rl",
@@ -50,11 +50,20 @@ function dataset() {
 
     //タイトル
     data.title = $("#title").val();
+    //タイトルカナ
+    data.title_kana = $("#title_kana").val();
     //著者１
-    data.author1 = $("#author1").val();
+    data.creator1 = $("#creator1").val();
+    //著者１カナ
+    data.creator1_kana = $("#creator1_kana").val();
     //著者２
-    data.author2 = $("#author2").val();
+    data.creator2 = $("#creator2").val();
+    //著者２カナ
+    data.creator2_kana = $("#creator2_kana").val();
     //出版社
+    data.publisher = $("#publisher").val();
+    //出版社カナ
+    data.publisher_kana = $("#publisher_kana").val();
     //言語
     data.language = document.getElementById("LangSelect").value
     //目次
@@ -102,21 +111,23 @@ epub = function (data) {
     console.log(nav)
 
 //後で追加する機能を変数としておいておく
+/*
 var title_kana=''
 var creator1_kana=''
 var creator2_kana=''
 var publisher=''
 var publisher_kana=''
+*/
     var opf = ejs.render(opftemplete, {
         uuid4: uuid4,
         title: data.title,
-        title_kana:title_kana,
-        creator1: data.author1,
-        creator1_kana:creator1_kana,
-        creator2: data.author2,
-        creator2_kana:creator2_kana,
-        publisher:publisher,
-        publisher_kana,publisher_kana,
+        title_kana:data.title_kana,
+        creator1: data.creator1,
+        creator1_kana:data.creator1_kana,
+        creator2: data.creator2,
+        creator2_kana:data.creator2_kana,
+        publisher:data.publisher,
+        publisher_kana:data.publisher_kana,
         okuduke:okuduke,
         date: date,
         panel_view: data.panel_view,
@@ -128,7 +139,7 @@ var publisher_kana=''
     console.log(opf)
     var tocncx = ejs.render(toctemplete, {
         uuid4: uuid4,
-        creator1: data.author1,
+        creator1: data.creator1,
         title: data.title,
         cover: data.index[0][1],
         toc1: "目次",
