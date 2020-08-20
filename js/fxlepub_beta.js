@@ -91,6 +91,29 @@ function dataset() {
     }
 }
 
+function datacheck() {
+    if (data.title == '') {
+        alert('タイトルを入力してください')
+    }
+    if (data.title == '' && data.title_kana !== '') {
+        alert('タイトルを入力してください')
+    }
+    if (data.creator1 == '') {
+        alert('著者１を入力してください')
+    }
+        if (data.creator1 == '' && data.creator1_kana !== '') {
+        alert('著者１を入力してください')
+    }
+        if (data.creator1 == '' && data.creator2 !== '') {
+        alert('著者１を入力してください')
+    }
+        if (data.creator2 == '' && data.creator2_kana !== '') {
+        alert('著者2を入力してください')
+    }
+    if (data.publisher == '' && data.publisher_kana !== '') {
+        alert('出版社名を入力してください')
+    }
+}
 var objV4 = UUID.genV4();
 uuid4 = objV4.urn;
 var today = new Date();
