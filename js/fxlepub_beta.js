@@ -92,27 +92,43 @@ function dataset() {
 }
 
 function datacheck() {
+var t_flag=0
+var c_flag=0
+var c2_flag=0
+var s_flag=0
+
     if (data.title == '') {
-        alert('タイトルを入力してください')
+ //       alert('タイトルを入力してください')
+        t_flag=1
     }
     if (data.title == '' && data.title_kana !== '') {
-        alert('タイトルを入力してください')
+//        alert('タイトルを入力してください')
+        t_flag=1
     }
     if (data.creator1 == '') {
-        alert('著者１を入力してください')
+  //      alert('著者１を入力してください')
+                c_flag=1
     }
         if (data.creator1 == '' && data.creator1_kana !== '') {
-        alert('著者１を入力してください')
+    //    alert('著者１を入力してください')
+             c_flag=1
     }
         if (data.creator1 == '' && data.creator2 !== '') {
-        alert('著者１を入力してください')
+   //     alert('著者１を入力してください')
+        c_flag=1
     }
         if (data.creator2 == '' && data.creator2_kana !== '') {
-        alert('著者2を入力してください')
+   //     alert('著者2を入力してください')
+        c2_flag=1
     }
     if (data.publisher == '' && data.publisher_kana !== '') {
-        alert('出版社名を入力してください')
+  //      alert('出版社名を入力してください')
+        s_flag=1
     }
+    if(t_flag==1){alert('タイトルを入力してください')}
+    if(c_flag==1){alert('著者１を入力してください')}
+    if(c2_flag==1){alert('著者2を入力してください')}
+    if( s_flag==1){alert('出版社名を入力してください')}
 }
 var objV4 = UUID.genV4();
 uuid4 = objV4.urn;
@@ -386,6 +402,7 @@ function addmenu() {
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("demo").addEventListener("click", function () {
         dataset()
+        datacheck()
         epub(data)
     });
 });
