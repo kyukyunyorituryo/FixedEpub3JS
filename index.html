@@ -6,50 +6,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--OGP -->
     <meta property="og:title" content="漫画のEPUB作成サイト" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://kyukyunyorituryo.github.io/FixedEpub3JS/" />
-<meta property="og:image" content="https://kyukyunyorituryo.github.io/FixedEpub3JS/twittercard.jpg" />
-<meta property="og:site_name" content="FixedLayout Epub3.js" />
-<meta property="og:description" content="kobo、bookwalker、Kindle、iBooks向けの漫画のEPUB作成サイト" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kyukyunyorituryo.github.io/FixedEpub3JS/" />
+    <meta property="og:image" content="https://kyukyunyorituryo.github.io/FixedEpub3JS/twittercard.jpg" />
+    <meta property="og:site_name" content="FixedLayout Epub3.js" />
+    <meta property="og:description" content="kobo、bookwalker、Kindle、iBooks向けの漫画のEPUB作成サイト" />
     <!--Twitterカード -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@99nyorituryo">
-<meta name="twitter:creator" content="@99nyorituryo">
-<meta name="twitter:title" content="漫画のEPUB作成サイト">
-<meta name="twitter:description" content="kobo、bookwalker、Kindle、iBooks向けの漫画のEPUB作成サイト">
-<meta name="twitter:image:src" content="https://kyukyunyorituryo.github.io/FixedEpub3JS/twittercard.jpg">
-<link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon" /> 
-<link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
+    <meta name="twitter:creator" content="@99nyorituryo">
+    <meta name="twitter:title" content="漫画のEPUB作成サイト">
+    <meta name="twitter:description" content="kobo、bookwalker、Kindle、iBooks向けの漫画のEPUB作成サイト">
+    <meta name="twitter:image:src" content="https://kyukyunyorituryo.github.io/FixedEpub3JS/twittercard.jpg">
+    <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
+    <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
     <title>FixedLayout Epub3.js</title>
     <!-- BootstrapのCSS読み込み -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Google Analytics -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93342586-1"></script>
     <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-  ga('create', 'UA-93342586-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
+        gtag('config', 'UA-93342586-1');
+    </script>
     <!-- jQuery読み込み -->
-<script defer 
-  src="https://code.jquery.com/jquery-1.12.4.min.js"
-  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
-  crossorigin="anonymous"></script>
+    <script defer
+            src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+            crossorigin="anonymous"></script>
     <!-- BootstrapのJS読み込み -->
-<script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- 追加した部分 -->
-       <script defer type="text/javascript" src="js/jszip.min.js"></script>
-       <script defer type="text/javascript" src="js/FileSaver.js"></script>
-       <script defer type="text/javascript" src="js/uuid.js"></script>
-       <script defer type="text/javascript" src="js/FixedEpub3.js"></script>
-       <script defer type="text/javascript" src="js/vkbeautify.js"></script>
-       <script defer type="text/javascript" src="js/share.js"></script>
-       <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/natsort@latest/index.min.js"></script>
-  </head>
+    <script defer type="text/javascript" src="js/jszip.min.js"></script>
+    <script defer type="text/javascript" src="js/FileSaver.js"></script>
+    <script defer type="text/javascript" src="js/uuid.js"></script>
+    <script defer type="text/javascript" src="js/FixedEpub3.js"></script>
+    <script defer type="text/javascript" src="js/vkbeautify.js"></script>
+    <script defer type="text/javascript" src="js/share.js"></script>
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/natsort@latest/index.min.js"></script>
+</head>
   <body >
       <!-- ナビゲーション -->
   <nav class="navbar navbar-default">
