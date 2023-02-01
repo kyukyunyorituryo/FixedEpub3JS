@@ -10,6 +10,10 @@ https://kyukyunyorituryo.github.io/FixedEpub3JS/
 
 ## 使い方
 
+[![ウェブ小説のEPUB変換](http://img.youtube.com/vi/EqVBBCpyi1E/0.jpg)](https://www.youtube.com/watch?v=EqVBBCpyi1E)
+
+https://www.youtube.com/watch?v=EqVBBCpyi1E
+
 ### 入力欄
 * 「表題、著者１、著者２」
 タイトルや著者名などを入力する。読み仮名や、出版社名は省いている。詳細設定モードを作るかもしれない。
