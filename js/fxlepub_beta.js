@@ -261,6 +261,7 @@ function CoverFileSelect(evt) {
                 else { document.getElementById('coverthumb').insertBefore(span, null); }
                 if (theFile.type == "image/jpeg") { cover_ext = "jpg" };
                 if (theFile.type == "image/png") { cover_ext = "png" };
+                if (theFile.type == "image/webp") { cover_ext = "webp" };
                 //チェックコード
                 var image = new Image();
                 image.src = e.target.result;
@@ -319,6 +320,7 @@ function handleFileSelect(evt) {
                 addselect();
                 if (theFile.type == "image/jpeg") { image_ext = "jpg" };
                 if (theFile.type == "image/png") { image_ext = "png" };
+                if (theFile.type == "image/webp") { image_ext = "webp" };
                 data.files.push({
                     //"id" :('0000' + (parseInt(i) +1)) .slice( -3 ),
                     //"file_id": "i-"+ ('0000' + (parseInt(i) +1)) .slice( -3 ),

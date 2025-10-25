@@ -72,6 +72,7 @@ function pop(self) {
           coverFO=({file_name:theFile.name,data:e.target.result,type:theFile.type});
           if(coverFO.type=="image/jpeg"){coverFO.ext="jpg"};
 	if(coverFO.type=="image/png"){coverFO.ext="png"};
+	if(coverFO.type=="image/webp"){coverFO.ext="webp"};
 	//チェックコード
 var image =new Image();
 image.src = e.target.result;
@@ -307,6 +308,7 @@ for (j = 0; j < imgFO.length; j++){
 imgFO[j].id="i-"+ ('0000' + (j+1) ).slice( -3 );
 if(imgFO[j].type=="image/jpeg"){imgFO[j].ext="jpg"};
 if(imgFO[j].type=="image/png"){imgFO[j].ext="png"};
+if(imgFO[j].type=="image/webp"){imgFO[j].ext="webp"};
 //svg: "image/svg+xml"
 //var item='\n<item media-type="image/jpeg" id="i-001" href="image/i-001.jpg"/>'
 //var itemxml = (new DOMParser()).parseFromString(item, 'text/xml');
